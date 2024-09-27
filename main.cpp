@@ -354,7 +354,6 @@ public:
                 strncpy(Found.valence, temporal.valence, sizeof(Found.valence));
                 strncpy(Found.tempo, temporal.tempo, sizeof(Found.tempo));
                 strncpy(Found.time_signature, temporal.time_signature, sizeof(Found.time_signature));
-
                 Found.right = remove(Found.right, temporal.id, eliminated);
             }
         }
@@ -370,14 +369,14 @@ public:
         if (balance > 1 && balancingFactor(Found.left) >= 0)
             return right_rota(post_root);
 
+        if (balance < -1 && balancingFactor(Found.right) <= 0)
+            return left_rota(post_root);
+
         if (balance > 1 && balancingFactor(Found.left) < 0) {
             Found.left = left_rota(Found.left);
             updateRecord(post_root, Found);
             return right_rota(post_root);
         }
-
-        if (balance < -1 && balancingFactor(Found.right) <= 0)
-            return left_rota(post_root);
 
         if (balance < -1 && balancingFactor(Found.right) > 0) {
             Found.right = right_rota(Found.right);
@@ -689,7 +688,5 @@ int main() {
     {
         cerr << msg << endl;
     }
-    
-
     return 0; 
 }
