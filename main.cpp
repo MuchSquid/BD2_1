@@ -513,40 +513,6 @@ vector<Record> leerCSV(const string& filename) {
     file.close();
     return records;
 }
-
-
-
-/*
-void readFile(string filename) {
-    AVLFile<int> avlFile(filename);
-    vector<Record> records = leerCSV("datos.csv");
-    for (auto& record : records) {
-        avlFile.insert(record);
-    }
-    cout << "------------------------------------------\n";
-    bool passed = true;
-    for (auto& record : records) {
-        Record foundRecord = avlFile.findRecord(record.codigo);
-        
-        if (!(foundRecord == record)) {
-            passed = false;
-            cout << "Error en el record con codigo: " << record.codigo << "\n";
-            cout << "Se esperaba: \n";
-            record.showData();
-            cout << "\nSe obtuvo: \n";
-            foundRecord.showData();
-            cout << "\n";
-            break;
-        }
-    }
-    if (passed) {
-        cout << "Todos los records fueron leidos correctamente\n";
-    } else {
-        cout << "Hubo errores en la lectura de algunos records\n";
-    }
-  }
-
-/// ISAM
 const size_t M = 50; // Tamaño de la página para índices
 const size_t N = 100; // Tamaño de la página de datos
 struct PageData {
@@ -1062,6 +1028,36 @@ vector<Record> search(const char* search_id) {
 }
 };
 
+
+/*
+void readFile(string filename) {
+    AVLFile<int> avlFile(filename);
+    vector<Record> records = leerCSV("datos.csv");
+    for (auto& record : records) {
+        avlFile.insert(record);
+    }
+    cout << "------------------------------------------\n";
+    bool passed = true;
+    for (auto& record : records) {
+        Record foundRecord = avlFile.findRecord(record.codigo);
+        
+        if (!(foundRecord == record)) {
+            passed = false;
+            cout << "Error en el record con codigo: " << record.codigo << "\n";
+            cout << "Se esperaba: \n";
+            record.showData();
+            cout << "\nSe obtuvo: \n";
+            foundRecord.showData();
+            cout << "\n";
+            break;
+        }
+    }
+    if (passed) {
+        cout << "Todos los records fueron leidos correctamente\n";
+    } else {
+        cout << "Hubo errores en la lectura de algunos records\n";
+    }
+  }
 
 
 */
