@@ -661,7 +661,7 @@ void build_bottom_level() {
 
    
 vector<Record> search(const char* search_id) {
-    cout << "Buscando ID: " << search_id << endl;
+    // cout << "Buscando ID: " << search_id << endl;
     
     fstream root_index_file(index_paths[0], ios::in | ios::binary);
     PageIndex search_page;
@@ -670,7 +670,7 @@ vector<Record> search(const char* search_id) {
 
     while (root_index_file.read(reinterpret_cast<char*>(&search_page), sizeof(search_page))) {
         for (size_t i = 0; i < search_page.count; i++) {
-            cout << "Comparando con key: " << search_page.keys[i] << endl;
+            // cout << "Comparando con key: " << search_page.keys[i] << endl;
             if (strcmp(search_id, search_page.keys[i]) <= 0) {
                 found_page_address = search_page.pages[i];
                 found = true;
@@ -684,7 +684,7 @@ vector<Record> search(const char* search_id) {
         found_page_address = search_page.pages[search_page.count - 1];
     }
 
-    cout << "Página encontrada en el primer nivel: " << found_page_address << endl;
+    // cout << "Página encontrada en el primer nivel: " << found_page_address << endl;
 
     fstream second_index_file(index_paths[1], ios::in | ios::binary);
     PageIndex second_index_page;
@@ -694,7 +694,7 @@ vector<Record> search(const char* search_id) {
 
     while (second_index_file.read(reinterpret_cast<char*>(&second_index_page), sizeof(second_index_page))) {
         for (size_t i = 0; i < second_index_page.count; i++) {
-            cout << "Comparando con key del segundo nivel: " << second_index_page.keys[i] << endl;
+            // cout << "Comparando con key del segundo nivel: " << second_index_page.keys[i] << endl;
             if (strcmp(search_id, second_index_page.keys[i]) <= 0) {
                 found_second_page_address = second_index_page.pages[i];
                 found = true;
@@ -708,7 +708,7 @@ vector<Record> search(const char* search_id) {
         found_second_page_address = second_index_page.pages[second_index_page.count - 1];
     }
 
-    cout << "Página encontrada en el segundo nivel: " << found_second_page_address << endl;
+    // cout << "Página encontrada en el segundo nivel: " << found_second_page_address << endl;
 
     fstream data_index_file(index_paths[2], ios::in | ios::binary);
     PageData data_page;
@@ -718,10 +718,10 @@ vector<Record> search(const char* search_id) {
     
     while (data_index_file.read(reinterpret_cast<char*>(&data_page), sizeof(data_page))) {
         for (size_t i = 0; i < data_page.count; i++) {
-            cout << "Comparando con ID: " << data_page.records[i].id << endl;
+            // cout << "Comparando con ID: " << data_page.records[i].id << endl;
             if (strcmp(search_id, data_page.records[i].id) == 0) {
                 result.push_back(data_page.records[i]);
-                cout << "Registro encontrado!" << endl;
+                // cout << "Registro encontrado!" << endl;
             }
         }
         if (data_page.nextPage == -1) break;
@@ -732,7 +732,7 @@ vector<Record> search(const char* search_id) {
     second_index_file.close();
     data_index_file.close();
     
-    cout << "Número de resultados encontrados: " << result.size() << endl;
+    // cout << "Número de resultados encontrados: " << result.size() << endl;
     return result;
 }
 
