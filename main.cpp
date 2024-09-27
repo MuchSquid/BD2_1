@@ -1028,6 +1028,37 @@ vector<Record> search(const char* search_id) {
 }
 };
 
+void pruebaISAM(string csv_path){
+        ISAM isam(csv_path);
+        cout << "ISAM construido exitosamente." << endl;
+        const char* busca = "1h4TGS0ytq2EujrSjsbopD";
+        vector<Record> resultado = isam.search(busca);
+        
+        cout << "Resultados de la búsqueda:" << endl;
+        for (const auto& record : resultado) {
+            cout << "ID: " << record.id << ", Nombre: " << record.name << endl;
+        }
+
+        // Ejemplo de búsqueda por rango
+        const char* start_id = "5HlbF07r4waO8aEZn5pP6l";
+        const char* end_id =   "5L3asAbitjZc0uZsAyqv42";
+        vector<Record> range_result = isam.range_search(start_id, end_id);
+        
+        cout << "\nResultados de la búsqueda por rango:" << endl;
+        for (const auto& record : range_result) {
+            cout << "ID: " << record.id << ", Nombre: " << record.name << endl;
+        }
+
+        // Ejemplo de eliminación
+        const char* remove_id = "1h4TGS0ytq2EujrSjsbopD";
+        bool removed = isam.remove(remove_id);
+        if (removed) {
+            cout << "\nRegistro con ID " << remove_id << " eliminado exitosamente." << endl;
+        } else {
+            cout << "\nNo se encontró el registro con ID " << remove_id << " para eliminar." << endl;
+        }
+    
+}
 
 /*
 void readFile(string filename) {
