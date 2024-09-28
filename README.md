@@ -18,7 +18,6 @@
 
 - [Pruebas de uso y presentación](#Pruebas-de-uso-y-presentación)
 - [Autores](#autores)
-- [Link de Presentación](#link-de-presentación)
 
 
 # Introducción
