@@ -348,7 +348,7 @@ public:
 
         Record1 Found = getRecord(post_root);
         if (strcmp(begin_key, Found.id) < 0) {
-            vector<Record> leftRecords = rangeSearch(Found.left, begin_key, end_key);
+            vector<Record1> leftRecords = rangeSearch(Found.left, begin_key, end_key);
             records.insert(records.end(), leftRecords.begin(), leftRecords.end());
         }
 
@@ -356,7 +356,7 @@ public:
             records.push_back(Found);
 
         if (strcmp(end_key, Found.id) > 0) {
-            vector<Record> rightRecords = rangeSearch(Found.right, begin_key, end_key);
+            vector<Record1> rightRecords = rangeSearch(Found.right, begin_key, end_key);
             records.insert(records.end(), rightRecords.begin(), rightRecords.end());
         }
 
