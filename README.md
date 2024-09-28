@@ -140,7 +140,7 @@ en una variable ```siguientePos``` de tipo int y un ``esAux`` de tipo bool el cu
 
     **Complejidad:** La búsqueda en secuencia recorre los registros del archivo principal y, si es necesario, del archivo auxiliar. En el peor de los casos, puede ser necesario recorrer todos los registros. Dado que la búsqueda es lineal, la complejidad es ``O(n)`` en el peor caso.
 
-  Complejidad total: ``O(n)``.
+    Complejidad total: ``O(n)``.
 
 3.   Función insertAll:
 
