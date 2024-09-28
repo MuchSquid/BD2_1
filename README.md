@@ -68,7 +68,7 @@ struct Record {
 
 |    **Campo**    |                            **Descripción**                                          | 
 |:---------------:|:-----------------------------------------------------------------------------------:|
-| ```id```        | Identificador único para cada película.             |  
+| ```id```        | Id unique.             |  
 | ```name```  | Name of track | 
 | ```popularity``` | Popularity of track in range 0 to 100. |
 | ```duration_ms``` | Duration of songs in ms.|
@@ -78,7 +78,32 @@ struct Record {
 | ```tempo``` | The overall tempo of track in BPM. |
 
 
+ ```c++
+struct Record2 {
+    char id[7];
+    char date[10];
+    char customer[4];
+    char model[13];
+    char price[7];
+    char quantity[2];
+    char storelocation[12];
+    char salespersonid[3];
+    char paymentmethod[11];
+    char customerage[3];
+    char customergender[6];
+};
+ ```
 
+|    **Campo**    |
+|:---------------:|
+| ```id```        | 
+| ```Date```  |
+| ```Customer_ID``` | 
+| ```Bike_Model``` |
+| ```Price``` | 
+| ```Quantity``` | 
+| ```...``` | ... |
+| ```Customer_Age``` |
 
 # Autores
 
