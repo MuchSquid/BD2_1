@@ -5,7 +5,6 @@
     - [Principal](#principal)
     - [Secundarios](#secundario)
   - [Dataset](#dataset)
-    - [Generación de registros en binario](#generación-de-registros-en-binario)
 - [Técnicas de indexación](#tecnicas-de-indexación)
   - [Sequential File](#sequential-file)
     - [Elementos de ayuda](#elementos-de-ayuda)
