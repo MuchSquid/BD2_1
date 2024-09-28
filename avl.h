@@ -201,7 +201,7 @@ public:
         return 1 + left + right;    
     }
 
-    long insert(long post_root, Record record) {
+    long insert(long post_root, Record1 record) {
         if (post_root == -1) {
             long end_pos = end_of_file();
             updateRecord(end_pos, record);
