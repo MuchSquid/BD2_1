@@ -13,7 +13,8 @@
     - [`Class Sequential_File`: Constructor](#class-sequential_file-constructor)
     - [`Class Sequential_File`: Funciones](#class-sequential_file-funciones)
     - [Código de prueba](#código-de-prueba)
-    - [Análisis de complejidad](#análisis-de-complejidad
+    - [Análisis de complejidad](#análisis-de-complejidad)
+    
 
 - [Pruebas de uso y presentación](#Pruebas-de-uso-y-presentación)
 - [Autores](#autores)
