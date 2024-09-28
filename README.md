@@ -121,7 +121,38 @@ Esta técnica de organización se caracteriza, principalmente, por su forma de o
 >**Implementación**: Para la implementación de este algoritmo, se uso la técnica de un espacio auxiliar alfinal de cada registro el cual apunta al siguiente puntero que sea su consecuente de modo que los punteros siempre estaran ordenados apuntando a uno mayor que este el cual se calculca en base al campo principal (PK).
 
 ## ISAM - SPARSE INDEX
+La clase ISAM implementa un método de acceso secuencial indexado en dos niveles para gestionar grandes volúmenes de datos. La clase divide los datos en páginas y utiliza índices jerárquicos para realizar operaciones eficientes sobre el almacenamiento de datos.
 
+**Estructuras principales:**
+* PageData: Contiene un arreglo de registros con tamaño fijo (N = 100), una cuenta de registros (count), y un puntero (nextPage) para manejar páginas desbordadas.
+* PageIndex: Contiene las claves (keys) para identificar páginas y punteros (pages) a páginas en niveles inferiores. También tiene una cuenta de claves (count).
+
+### Funciones principales:
+1.  add (Insertar)
+
+    **Descripción:** Inserta un nuevo registro en el archivo de datos, actualizando las páginas de índices si es necesario. Si una página de datos está llena, se maneja a través del enlace de desbordamiento sin dividir la página.
+
+    **Complejidad:** En promedio es O(logn) para localizar la página correcta a través de los índices y O(1) para insertar en la página. En el peor caso, si hay desbordamiento y hay que enlazar nuevas páginas, se mantiene dentro de O(logn).
+
+2.  Remove(Eliminar)
+
+    **Descripción:** Elimina un registro de la página de datos correspondiente y actualiza los índices si es necesario. Si se eliminan suficientes registros de una página, no es necesario compactar inmediatamente, pero se puede optimizar el espacio en futuras operaciones.
+    
+    **Complejidad:** O(logn) para localizar la página correcta y O(1) para eliminar el registro, manteniéndose en el peor caso dentro de O(logn).
+
+3. Search(Búsqueda)
+    
+    **Descripción:** Busca un registro en el archivo de datos usando las claves en las páginas de índices para localizar la página de datos correcta.
+
+    **Complejidad:** O(logn), donde n es el número de páginas en el sistema. La búsqueda primero navega por los índices y luego localiza el registro en la página.
+
+4. RangeSearch(Búsqueda por rango)
+    **Descripción:** Devuelve todos los registros dentro de un rango de claves. Navega por los índices para encontrar el inicio del rango y luego recorre secuencialmente las páginas de datos hasta alcanzar el final del rango.
+
+    **Complejidad:** O(logn+m), donde m es el número de registros que caen dentro del rango.
+
+
+Cada una de estas operaciones aprovecha la estructura de índices para mantener un acceso eficiente y rápido, minimizando el número de accesos a disco, lo que es crucial para grandes volúmenes de datos.
 
 # Autores
 
