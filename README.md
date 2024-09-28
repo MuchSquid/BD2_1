@@ -66,6 +66,17 @@ struct Record {
 };
  ```
 
+|    **Campo**    |                            **Descripción**                                          | 
+|:---------------:|:-----------------------------------------------------------------------------------:|
+| ```id```        | Identificador único para cada película.             |  
+| ```name```  | Name of track | 
+| ```popularity``` | Popularity of track in range 0 to 100. |
+| ```duration_ms``` | Duration of songs in ms.|
+| ```explicit``` | Artists who created the track. |
+| ```id_artists``` | Id of artists who created the track. |
+| ```...``` | ... |
+| ```energy``` | How energized a song is in range 0 to 1. |
+
 
 
 
