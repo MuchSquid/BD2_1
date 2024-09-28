@@ -1,4 +1,4 @@
-#include "parser_sql.hh"
+#include "parser2.hh"
 using namespace std;
 
 inline static const char* token_names[34]= {"SELECT", "CREATE", "TABLE", "FROM", "ALL", "WHERE", 
@@ -158,15 +158,15 @@ void Parser::show(){
     cout<<endl;
 }
   
-//   void mostrarValues(){
-//     for(auto it : values){
-//       cout<<it.first<<": "<<it.second<<endl;
-//     }
-//   }
+void Parser::showV(){
+    for(auto it : values){
+      cout<<it.first<<": "<<it.second<<endl;
+    }
+}
   
 void Parser::parseInsert(){
     try {
-        if(tabla.second == "registros1") {
+        if(tabla.second == "record1") {
             char id[23];
             char name[529];
             char popularity[3];
@@ -188,15 +188,56 @@ void Parser::parseInsert(){
             char tempo[7];
             char time_signature[1];
 
-            char *campos[] = {id, name, popularity, duration_ms, explicit_, artists, id_artists, release_date,
-                                danceability, energy, key_str, loudness, mode, speechiness, acousticness,
-                                instrumentalness, liveness, valence, tempo, time_signature};
-            int longitudes[] = {23, 529, 3, 7, 1, 934, 1508, 10, 6, 8, 2, 7, 1, 6, 8, 8, 7, 8, 7, 1};
+            strncpy(id, values[0].first.c_str(), sizeof(id) - 1);
+            id[sizeof(id) - 1] = '\0';
+            strncpy(name, values[1].first.c_str(), sizeof(name) - 1);
+            name[sizeof(name) - 1] = '\0';
+            strncpy(popularity, values[2].first.c_str(), sizeof(popularity) - 1);
+            popularity[sizeof(popularity) - 1] = '\0';
+            strncpy(duration_ms, values[3].first.c_str(), sizeof(duration_ms) - 1);
+            duration_ms[sizeof(duration_ms) - 1] = '\0';
+            strncpy(explicit_, values[4].first.c_str(), sizeof(explicit_) - 1);
+            explicit_[sizeof(explicit_) - 1] = '\0';
+            strncpy(artists, values[5].first.c_str(), sizeof(artists) - 1);
+            artists[sizeof(artists) - 1] = '\0';
+            strncpy(id_artists, values[6].first.c_str(), sizeof(id_artists) - 1);
+            id_artists[sizeof(id_artists) - 1] = '\0';
+            strncpy(release_date, values[7].first.c_str(), sizeof(release_date) - 1);
+            release_date[sizeof(release_date) - 1] = '\0';
+            strncpy(danceability, values[8].first.c_str(), sizeof(danceability) - 1);
+            danceability[sizeof(danceability) - 1] = '\0';
+            strncpy(energy, values[9].first.c_str(), sizeof(energy) - 1);
+            energy[sizeof(energy) - 1] = '\0';
+            strncpy(key_str, values[10].first.c_str(), sizeof(key_str) - 1);
+            key_str[sizeof(key_str) - 1] = '\0';
+            strncpy(loudness, values[11].first.c_str(), sizeof(loudness) - 1);
+            loudness[sizeof(loudness) - 1] = '\0';
+            strncpy(mode, values[12].first.c_str(), sizeof(mode) - 1);
+            mode[sizeof(mode) - 1] = '\0';
+            strncpy(speechiness, values[13].first.c_str(), sizeof(speechiness) - 1);
+            speechiness[sizeof(speechiness) - 1] = '\0';
+            strncpy(acousticness, values[14].first.c_str(), sizeof(acousticness) - 1);
+            acousticness[sizeof(acousticness) - 1] = '\0';
+            strncpy(instrumentalness, values[15].first.c_str(), sizeof(instrumentalness) - 1);
+            instrumentalness[sizeof(instrumentalness) - 1] = '\0';
+            strncpy(liveness, values[16].first.c_str(), sizeof(liveness) - 1);
+            liveness[sizeof(liveness) - 1] = '\0';
+            strncpy(valence, values[17].first.c_str(), sizeof(valence) - 1);
+            valence[sizeof(valence) - 1] = '\0';
+            strncpy(tempo, values[18].first.c_str(), sizeof(tempo) - 1);
+            tempo[sizeof(tempo) - 1] = '\0';
+            strncpy(time_signature, values[19].first.c_str(), sizeof(time_signature) - 1);
+            time_signature[sizeof(time_signature) - 1] = '\0';
             
-            for (int i = 0; i < 20; i++) {
-                strncpy(campos[i], values[i].first.c_str(), longitudes[i] - 1);
-                campos[i][longitudes[i] - 1] = '\0';
-            }
+            // char *campos[] = {id, name, popularity, duration_ms, explicit_, artists, id_artists, release_date,
+            //                     danceability, energy, key_str, loudness, mode, speechiness, acousticness,
+            //                     instrumentalness, liveness, valence, tempo, time_signature};
+            // int longitudes[] = {23, 529, 3, 7, 1, 934, 1508, 10, 6, 8, 2, 7, 1, 6, 8, 8, 7, 8, 7, 1};
+            
+            // for (int i = 0; i < 20; i++) {
+            //     strncpy(campos[i], values[i].first.c_str(), longitudes[i] - 1);
+            //     campos[i][longitudes[i] - 1] = '\0';
+            // }
             Record1 record(id, name, popularity, duration_ms, explicit_, artists, id_artists, release_date,
                             danceability, energy, key_str, loudness, mode, speechiness, acousticness, instrumentalness,
                             liveness, valence, tempo, time_signature);
@@ -206,6 +247,7 @@ void Parser::parseInsert(){
                 error_message = "Ya existe este elemento";
             } else {
                 cout << "Insertado" << endl;
+                error_message = "";
             }
         } else {
             char id[7];
@@ -220,12 +262,34 @@ void Parser::parseInsert(){
             char customerage[2];
             char customergender[6];
 
-            char *campos[] = {id, date, customer, model, price, quantity, storelocation, salespersonid, paymentmethod, customerage, customergender};
-            int longitudes[] = {7, 10, 4, 13, 7, 1, 12, 3, 11, 2, 6};
-            for (int i = 0; i < 11; i++) {
-                strncpy(campos[i], values[i].first.c_str(), longitudes[i] - 1);
-                campos[i][longitudes[i] - 1] = '\0';
-            }
+            // char *campos[] = {id, date, customer, model, price, quantity, storelocation, salespersonid, paymentmethod, customerage, customergender};
+            // int longitudes[] = {7, 10, 4, 13, 7, 1, 12, 3, 11, 2, 6};
+            // for (int i = 0; i < 11; i++) {
+            //     strncpy(campos[i], values[i].first.c_str(), longitudes[i] - 1);
+            //     campos[i][longitudes[i] - 1] = '\0';
+            // }
+            strncpy(id, values[0].first.c_str(), sizeof(id) - 1);
+            id[sizeof(id) - 1] = '\0';
+            strncpy(date, values[1].first.c_str(), sizeof(date) - 1);
+            date[sizeof(date) - 1] = '\0';
+            strncpy(customer, values[2].first.c_str(), sizeof(customer) - 1);
+            customer[sizeof(customer) - 1] = '\0';
+            strncpy(model, values[3].first.c_str(), sizeof(model) - 1);
+            model[sizeof(model) - 1] = '\0';
+            strncpy(price, values[4].first.c_str(), sizeof(price) - 1);
+            price[sizeof(price) - 1] = '\0';
+            strncpy(quantity, values[5].first.c_str(), sizeof(quantity) - 1);
+            quantity[sizeof(quantity) - 1] = '\0';
+            strncpy(storelocation, values[6].first.c_str(), sizeof(storelocation) - 1);
+            storelocation[sizeof(storelocation) - 1] = '\0';
+            strncpy(salespersonid, values[7].first.c_str(), sizeof(salespersonid) - 1);
+            salespersonid[sizeof(salespersonid) - 1] = '\0';
+            strncpy(paymentmethod, values[8].first.c_str(), sizeof(paymentmethod) - 1);
+            paymentmethod[sizeof(paymentmethod) - 1] = '\0';
+            strncpy(customerage, values[9].first.c_str(), sizeof(customerage) - 1);
+            customerage[sizeof(customerage) - 1] = '\0';
+            strncpy(customergender, values[10].first.c_str(), sizeof(customergender) - 1);
+            customergender[sizeof(customergender) - 1] = '\0';
 
             Record2 record(id, date, customer, model, price, quantity, storelocation, salespersonid, paymentmethod, customerage, customergender);
             bool ins = metodo2->add(record);
@@ -233,11 +297,12 @@ void Parser::parseInsert(){
                 error_message = "Ya existe este elemento";
             } else {
                 cout << "Insertado" << endl;
+                error_message = "";
             }
         }
 
     } catch (const std::exception& e) {
-        cout << "\tValores incorrectos para la tabla: " << e.what() << endl;
+        cout << "\tValores no validos" << e.what() << endl;
     }
 }
 
@@ -257,12 +322,12 @@ bool Parser::check(Token::Type ttype) {
 
 bool Parser::advance() {
     if (!isAtEnd()) {
-        Token* temp =current;
+        Token* temp = current;
         if (previous) delete previous;
         current = scanner->nextToken();
         previous = temp;
         if (check(Token::ERR)) {
-        error_message = "\tParse error, unrecognised character";
+        error_message = "\tParse error, no se reconoce el caracter";
         return false;
         }
         return true;
@@ -288,13 +353,13 @@ void Parser::parseStatement(){
     }
     else if(match(Token::CREATE)){
         if(match(Token::TABLE)){
-        Token* temp = previous; 
-        if(match(Token::ID)){
-            parseCreateTable(temp, previous->lexema);
+            Token* temp = previous; 
+            if(match(Token::ID)){
+                parseCreateTable(temp, previous->lexema);
+                return;
+            }
+            error_message = "\tSe esperaba un nombre de tabla";
             return;
-        }
-        error_message = "\tSe esperaba un nombre de tabla";
-        return;
         }
         error_message = "\tError de sintaxis";
         return;
@@ -302,14 +367,14 @@ void Parser::parseStatement(){
     else if(match(Token::INSERT)){
         if(match(Token::INTO)){
         if(match(Token::ID)){
-            string tabla_nombre = previous->lexema;
-            if(!existeTabla(tabla_nombre)){
-            error_message = "\tNo existe esa tabla";
-            return;
+            string table_Name = previous->lexema;
+            if(!existeTabla(table_Name)){
+                error_message = "\tNo existe esa tabla";
+                return;
             }
             if(match(Token::VALUES)){
-            bool res = parseValuesSentence(tabla_nombre);
-            return;
+                bool res = parseValuesSentence(table_Name);
+                return;
             }
             error_message = "\tEsperaba la sentencia VALUES";
             return;
@@ -332,10 +397,10 @@ bool Parser::parseValuesSentence(string tableName){
         bool res = parseValuesList();
         if(!res) return false;
         if(match(Token::RPAREN)){
-        if(match(Token::SEMICOLON)){
-            parseInsert();
-            return true;
-        }
+            if(match(Token::SEMICOLON)){
+                parseInsert();
+                return true;
+            }
         error_message = "\tEsperaba ;";
         return false;
         }
@@ -362,8 +427,8 @@ bool Parser::parseValues(){
             values.push_back(make_pair(value, "string"));
             return true;
         }
-        error_message = "\tEsperaba \"";
-        return false;
+            error_message = "\tEsperaba \"";
+            return false;
         }
         error_message = "\tSe esperaba un dato";
         return false;
@@ -434,15 +499,16 @@ void Parser::parseCreateTable(Token* temp, string tableName){
     }
     error_message = "\tError de sintaxis";
 }
+
 void Parser::parseEliminarTabla(){
     if(match(Token::FROM)){
         if(match(Token::ID)){
-        string nombre_table = previous->lexema;
-        if(!existeTabla(nombre_table)){
-            error_message = "\tNo existe la tabla "+ nombre_table;
+        string nomTable = previous->lexema;
+        if(!existeTabla(nomTable)){
+            error_message = "\tNo existe la tabla "+ nomTable;
             return;
         }
-        bool r = parseDelete(nombre_table);
+        bool r = parseDelete(nomTable);
         return;
         }
         error_message  = "\tSe esperaba el nombre de la tabla.";
@@ -458,22 +524,22 @@ bool Parser::parseDelete(string tableName){
             bool r = parseEqual();
             if(r){
             if(match(Token::SEMICOLON)){
-                cout<<" Eliminacion"<<endl;
+                cout<<" Eliminar"<<endl;
                 eliminarValor(tableName);
                 error_message = "";
                 return true;
             }
-            error_message = "\tSintaxis incorrecta, se esperaba ;";
+            error_message = "\tSe esperaba ;";
             return false;
             }
             return false;
         }
-        error_message = "\tSe esperaba la un '=' se encontro ";
+        error_message = "\tSe esperaba '=' se encontro ";
         }
-        error_message = "\tSe esperaba un id" ;
+        error_message = "\tSe esperaba ID" ;
         return false;
     }
-    error_message = "\tSe esperaba un WHERE";
+    error_message = "\tSe esperaba WHERE";
     return false;
 }
 
@@ -494,12 +560,12 @@ bool Parser::existeTabla(string tableName){
 void Parser::eliminarValor(string tableName){
     try{
         bool eliminado;
-        if(tabla.second == "registros1"){
+        if(tabla.second == "record2"){
             char id[23];
             strncpy(id, value.first.c_str(), 22);
             id[22] = '\0';
             eliminado = metodo->remove(id);
-        } else if(tabla.second == "registros2"){
+        } else if(tabla.second == "record1"){
             char id[7];
             strncpy(id, value.first.c_str(), 6);
             id[6] = '\0';
@@ -526,7 +592,7 @@ void Parser::parseFile(string tableName){
         error_message = "\tSe esperaba \"";
         return;
         }
-        error_message = "\tSe esperaba el nombre del archivo";
+        error_message = "\tSe esperaba filename";
         return;
     }
     error_message = "\tSe esperaba '";
@@ -553,32 +619,31 @@ void Parser::parseTipoMetodo(string fileName, string tableName){
         archivo = fileName[i] + archivo;
         i--;
     }
+    cout << archivo << endl;
     if(match(Token::AVL)){
         if(match(Token::SEMICOLON)){
             if(archivo == "musica.csv"){
                 remove("avl_data.dat");
-                remove("avl_index.dat");
                 metodo = new AVLFile<Record1>(fileName);
                 if (tableName == tablas[1].first) {
                     tablas[1].first = "";
                 }
-                tablas[0] = make_pair(tableName, "registros1");
+                tablas[0] = make_pair(tableName, "record1");
                 tabla = tablas[0];
                 insertData(fileName);
             } 
-            else if(archivo == "bike.csv"){
+            else if(archivo == "bike2.csv"){
                 remove("avl_data.dat");
-                remove("avl_index.dat");
                 metodo2 = new AVLFile2<Record2>(fileName);
                 if (tableName == tablas[0].first) {
                     tablas[0].first = "";
                 }
-                tablas[1] = make_pair(tableName, "registros2");
+                tablas[1] = make_pair(tableName, "record2");
                 tabla = tablas[1];
                 insertData2(fileName);
             }
-            error_message = "";
             cout << "Se uso AVL para crear la tabla" << endl;
+            error_message = "";
         } 
         error_message = "\tSe esperaba un ;";
         return;
@@ -601,11 +666,11 @@ void Parser::parseTipoMetodo(string fileName, string tableName){
                 if (tableName == tablas[1].first) {
                     tablas[1].first = "";
                 }
-                tablas[0] = make_pair(tableName, "registros1");
+                tablas[0] = make_pair(tableName, "record1");
                 tabla = tablas[0];
                 insertData(fileName);
             } 
-            else if(archivo == "musica.csv"){
+            else if(archivo == "bike2.csv"){
                 remove("sequential_data.dat");
                 remove("sequential_aux.dat");
                 auto comparator = [](const Record2& a, const Record2& b) {
@@ -622,43 +687,49 @@ void Parser::parseTipoMetodo(string fileName, string tableName){
                 if (tableName == tablas[0].first) {
                     tablas[0].first = "";
                 }
-                tablas[1] = make_pair(tableName, "registros2");
+                tablas[1] = make_pair(tableName, "record2");
                 tabla = tablas[1];
                 insertData2(fileName);
             }
-            error_message = "";
             cout << "Se uso Sequential para crear la tabla" << endl;
+            error_message = "";
             return;
         }
         error_message = "\tSintaxis incorrecta, ;";
         return;
     } else if(match(Token::ISAM)){
+        cout << archivo << endl;
+        cout << "tae" << endl;
         if(match(Token::SEMICOLON)){
+            cout << archivo << endl;
             if(archivo == "musica.csv"){
-                remove("isam_data.dat");
-                remove("isam_index.dat");
+                remove("index1.bin");
+                remove("index2.bin");
+                remove("index3.bin");
                 // delete metodo;
                 metodo = new ISAM<Record1>(fileName, true);
                 if (tableName == tablas[1].first) {
                     tablas[1].first = "";
                 }
-                tablas[0] = make_pair(tableName, "registros1");
+                tablas[0] = make_pair(tableName, "record1");
                 tabla = tablas[0];
                 insertData(fileName);
             } 
-            else if(archivo == "bike.csv"){
-                remove("isam_data.dat");
-                remove("isam_index.dat");
+            else if(archivo == "bike2.csv"){
+                cout<<"entro"<<endl;
+                remove("index1.bin");
+                remove("index2.bin");
+                remove("index3.bin");
                 metodo2 = new ISAM<Record2>(fileName, false);
                 if (tableName == tablas[0].first) {
                     tablas[0].first = "";
                 }
-                tablas[1] = make_pair(tableName, "registros2");
+                tablas[1] = make_pair(tableName, "record2");
                 tabla = tablas[1];
                 insertData2(fileName);
             }
+            cout << "Se uso ISAM para crear la tabla, funcionando" << endl;
             error_message = "";
-            cout << "Se uso ISAM para crear la tabla" << endl;
             return;
         }
         error_message = "\tSintaxis incorrecta, ;";
@@ -685,19 +756,19 @@ void Parser::parseOp2(string tableName){
     if(match(Token::EQUAL)){
         bool v = parseEqual();
         if(v){
-        cout << previous->lexema << endl;
-        if(match(Token::SEMICOLON)){
-            bool s = parseBuscarValor(tableName);
-            if(!s){
-                error_message = "No existe un elemento con la llave buscada";
+            cout << previous->lexema << endl;
+            if(match(Token::SEMICOLON)){
+                bool s = parseBuscarValor(tableName);
+                if(!s){
+                    error_message = "No existe un elemento con la llave buscada";
+                    return;
+                }
+                datos.clear();
+                error_message = "";
                 return;
             }
-            datos.clear();
-            error_message = "";
+            error_message = "\tSintaxis incorrecta";
             return;
-        }
-        error_message = "\tSintaxis incorrecta";
-        return;
         }
         
         return;
@@ -714,20 +785,7 @@ void Parser::parseOp2(string tableName){
 
 bool Parser::parseBuscarValor(string tableName){
     try{
-        if(tabla.second == "registros1"){
-            registros1.clear();
-            char id[23];
-            strncpy(id, value.first.c_str(), 22);
-            id[22] = '\0';
-            pair<Record1, bool> result = metodo->search(id);
-            if(!result.second){
-                error_message = "\tNo existe el valor dicho.";
-                return false;
-            } else {
-                registros1.push_back(result.first);
-                return true;
-            }
-        } else {
+        if(tabla.second == "record2"){
             registros2.clear();
             char id[7];
             strncpy(id, value.first.c_str(), 6);
@@ -738,6 +796,19 @@ bool Parser::parseBuscarValor(string tableName){
                 return false;
             } else {
                 registros2.push_back(result.first);
+                return true;
+            }
+        } else {
+            registros1.clear();
+            char id[23];
+            strncpy(id, value.first.c_str(), 22);
+            id[22] = '\0';
+            pair<Record1, bool> result = metodo->search(id);
+            if(!result.second){
+                error_message = "\tNo existe el valor dicho.";
+                return false;
+            } else {
+                registros1.push_back(result.first);
                 return true;
             }
         }
@@ -810,6 +881,7 @@ void Parser::insertData(string path){
 
     string linea;
     vector<string> campos;
+    istringstream lineaStream;
     int counter = 0;
     while (getline(archivo, linea)) {
         istringstream lineaStream(linea);
@@ -968,7 +1040,7 @@ void Parser::insertData2(string path) {
         customergender[sizeof(customergender) - 1] = '\0';
 
 
-        // Creamos el objeto Record1 con los valores extraídos del CSV
+        // Creamos el objeto Record2 con los valores extraídos del CSV
         Record2 record2(id, date, customer, model, price, quantity, storelocation, salespersonid, paymentmethod, customerage, customergender);
         
         bool result = metodo2->add(record2);
