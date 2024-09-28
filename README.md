@@ -147,6 +147,7 @@ La clase ISAM implementa un método de acceso secuencial indexado en dos niveles
     **Complejidad:** O(logn), donde n es el número de páginas en el sistema. La búsqueda primero navega por los índices y luego localiza el registro en la página.
 
 4. RangeSearch(Búsqueda por rango)
+   
     **Descripción:** Devuelve todos los registros dentro de un rango de claves. Navega por los índices para encontrar el inicio del rango y luego recorre secuencialmente las páginas de datos hasta alcanzar el final del rango.
 
     **Complejidad:** O(logn+m), donde m es el número de registros que caen dentro del rango.
