@@ -70,8 +70,6 @@ struct Record {
 };
  ```
 
-Traducción realizada con la versión gratuita del traductor DeepL.com
-
 |    **Campo**    |                            **Descripción**                                          | 
 |:---------------:|:-----------------------------------------------------------------------------------:|
 | ```id```        | Id unique.             |  
