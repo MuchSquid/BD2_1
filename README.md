@@ -124,6 +124,26 @@ en una variable ```siguientePos``` de tipo int y un ``esAux`` de tipo bool el cu
 
 >**Implementación**: Para la implementación de este algoritmo, se uso la técnica de un espacio auxiliar alfinal de cada registro el cual apunta al siguiente puntero que sea su consecuente de modo que los punteros siempre estaran ordenados apuntando a uno mayor que este el cual se calculca en base al campo principal (PK).
 
+## AVL
+La clase implementa un árbol balanceado donde la diferencia entre raama izquierda y derecha no supera el 1 0 -1.
+**Estructura principal**
+*Avl File: Contiene un long que piene ser la raiz, y tambien se le agregó 3 atributos a los records, left, right y heigh, que vienen a ser 2 refencias a los hijos del nodo y su altura
+
+### Funciones: 
+1. Add (Inserción)
+     Se inserta un nuevo registro de datos, si la raiz es -1, se inserta al final del archivo, en caso contrario, se va recorriendo el árbol de manera recursiva comparando el key para poder ir bajando por el árbol. Despues de cada inserción, se realiza el balanceo, donde se realizan las rotaciones respectivas para que el factorr de balanceo no exceda a la unidad. En el mejor de los casos tiene complejidad O(1) es decir que esta vació y en el pero O(log(n))
+
+2. Find (Búsqueda)
+     Para la búsqueda se hace un proceso similar al del insert, donde se va comparando recursivamente hasta encontrar la posición respectiva, en caso que sea -1, devuelve falso, ya que, no existe el nodo a buscar. En el mejor de los casos es complejidad 0(1) (la raíz) y en el peor de los casos es complejidad 0(log(n))
+
+3. Remove (Eliminación)
+   Se busca el registro, comparando respectivamente los keys hasta encontrarlos. Una vez encontrado pregunta si alguno de sus hijos es nulo y si es asi, se intercambio por ese, caso contrario, se busca al minimo del subarbol izquierdo para que lo reemplace. Una vez hecho esto se realiza la actualización de las alturas y los balanceos respectivos para que se cumpla el factor de balanceo.
+   En el peor de los casos tiene complejidad 0(log(n)), ya que, tiene que ir recorriendo el árbol, y en el mejor 0(1) habiendo solo 1 nodo en el árbol.
+   
+4. rangeSearch (Búsqueda por rango)
+   Primero se verifica que los keys de begin y end existan en el AVL, caso contario, se busca el succesor del begin y/o el predecessor del end, esto se hace con un stack y un queue. Luego, se va recorriendo al árbol de manera recursiva, añadiendo a un vector los       registros que cumplar estar entre el rango.
+   Este algoritmop tiene una complejidad muy costosa, siendo esta O(log(n)) + 0(k) + O(m), siendo k los k nodos recorridos para encontrar el begin si no se encuentra y m los m nodos recorridos hasta encontrar el end si es que no se encontrara y en el mejor de los casos   tiene complejidad 0(log(n))
+
 ## ISAM - SPARSE INDEX
 La clase ISAM implementa un método de acceso secuencial indexado en dos niveles para gestionar grandes volúmenes de datos. La clase divide los datos en páginas y utiliza índices jerárquicos para realizar operaciones eficientes sobre el almacenamiento de datos.
 
