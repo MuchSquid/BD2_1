@@ -124,7 +124,7 @@ en una variable ```siguientePos``` de tipo int y un ``esAux`` de tipo bool el cu
 
 >**Implementación**: Para la implementación de este algoritmo, se uso la técnica de un espacio auxiliar alfinal de cada registro el cual apunta al siguiente puntero que sea su consecuente de modo que los punteros siempre estaran ordenados apuntando a uno mayor que este el cual se calculca en base al campo principal (PK).
 
-1.   Función add:
+1. Función add:
 
   Descripción: Esta función inserta un nuevo registro en el archivo auxiliar, luego actualiza los punteros del registro anterior en la secuencia, y finalmente, si el tamaño del archivo auxiliar excede ```log(MainSize/2)```, reconstruye el indice (llama a la función rebuild).
 
@@ -136,7 +136,7 @@ en una variable ```siguientePos``` de tipo int y un ``esAux`` de tipo bool el cu
 
   Complejidad total: ``O(n+m)``, ya que en el peor de los casos se debe recorrer todo el archivo principal o auxiliar antes de insertar el nuevo registro.
 
-2.   Función search:
+2. Función search:
 
   Descripción: Esta función busca un registro con una clave específica. Empieza en el archivo principal y sigue los punteros hasta encontrar el registro o llegar al final de la secuencia.
 
@@ -155,7 +155,7 @@ en una variable ```siguientePos``` de tipo int y un ``esAux`` de tipo bool el cu
 
   Complejidad total: ```O(m log m)```, donde m es el número de registros iniciales.
 
-4.  Función rangeSearch:
+4. Función rangeSearch:
 
     Descripción: Busca todos los registros cuyas claves estén en un rango dado. Recorre secuencialmente los registros del archivo principal y auxiliar.
 
@@ -164,7 +164,7 @@ en una variable ```siguientePos``` de tipo int y un ``esAux`` de tipo bool el cu
    Al igual que en la función search, los registros se recorren de manera secuencial. En el peor caso, puede ser necesario recorrer todos los registros. Dado que no se hace un salto directo al inicio del rango, la complejidad es ``O(n)``.
    Complejidad total: ``O(n)``.
 
-5.   Función rebuild:
+6.   Función rebuild:
    Descripción: Esta función reconstruye el archivo principal cuando el archivo auxiliar alcanza un tamaño mayor a ```log(MainSize/2)```. Reordena todos los registros y elimina el archivo auxiliar(se vacía), se crea un archivo temporal donde se colocan para luego renombrarlo por el archivo inicial.
 
    Complejidad:
