@@ -228,6 +228,59 @@ La clase ISAM implementa un método de acceso secuencial indexado en dos niveles
 
 Cada una de estas operaciones aprovecha la estructura de índices para mantener un acceso eficiente y rápido, minimizando el número de accesos a disco, lo que es crucial para grandes volúmenes de datos.
 
+# Parser
+
+Implementamos un analizador (Parser) y un Scánner para procesar una versión simplificada de SQL (Structured Query Language).
+
+## Componentes principales
+1. **Token:**
+
+   - Representa las diferentes unidades léxicas (tokens) que se pueden reconocer en el texto de entrada.
+   - Cada token tiene un tipo (definido por un enumerado Type) y un lexema (una cadena de texto que representa el token en el código fuente).
+2. **Scanner:**
+
+   - La clase Scanner es responsable de leer el texto de entrada y dividirlo en tokens.
+   - Contiene un mapa (reserved) que almacena palabras reservadas en SQL y sus tipos correspondientes.
+   - Métodos importantes:
+     - nextToken(): Lee caracteres del texto de entrada y genera el siguiente token.
+     - isNumber(): Verifica si una cadena representa un número.
+     - checkReserved(): Comprueba si un lexema es una palabra reservada.
+3. **Parser:**
+
+   - La clase Parser interpreta los tokens generados por el Scanner y verifica su sintaxis.
+   - Métodos importantes:
+   - parse(): Inicia el proceso de análisis sintáctico.
+   - parseStatement(): Interpreta diferentes tipos de sentencias SQL como SELECT, CREATE, INSERT, y DELETE.
+   - parse_v_s(), parse_v_l(), y parserVals(): Manejan la sintaxis para insertar valores en una tabla.
+
+## Funcionalidades
+
+1. Análisis Léxico:
+
+ - El escáner convierte el texto SQL en tokens que el parser puede interpretar.
+ - Ignora espacios en blanco y saltos de línea, y reconoce palabras reservadas y nombres de identificadores.
+
+2. Análisis Sintáctico:
+   
+ - El parser utiliza los tokens generados por el escáner para construir una representación estructurada de las sentencias SQL.
+ - Cada tipo de sentencia tiene su propio manejo, lo que permite construir un árbol de sintaxis abstracta o realizar acciones específicas en función de la sentencia.
+
+3. Validación de Sintaxis:
+
+ - El parser verifica que las sentencias SQL estén correctamente formadas, emitiendo errores de sintaxis cuando se encuentra un token inesperado o mal colocado.
+
+4. Manejo de Tablas:
+
+ - El parser tiene la capacidad de verificar la existencia de tablas mediante la función existeTabla() y de almacenar los valores que se insertan en tablas.
+
+5. Almacenamiento de Valores:
+
+ - Al insertar datos, los valores se almacenan en un vector de pares, donde cada par consiste en el valor y su tipo correspondiente.
+
+## Errores y Mensajes
+- El código incluye mensajes de error que se muestran al usuario cuando se encuentra un problema en el análisis sintáctico, como caracteres no reconocidos o errores en la formación de las sentencias SQL.
+
+
 # Autores
 
 |                     **Esteban Vasquez Grados**                   |                                 **Darío Ricardo Nuñes Villacorta**                                 |                       **Yamileth Yarel Rincón Tejada**                     |  **Flavia Ailen Mañuico Quequejana** |   **Maria Fernanda Surco Vergara**  |
