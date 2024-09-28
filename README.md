@@ -42,6 +42,10 @@ filtraron los datos vacíos para evitar problemas con los algoritmos implementad
 
 > Esto nos ayudara para testear la capacidad de nuestros algoritmos.
 
+### Dataset1
+
+Spotify Dataset 1921-2020, 600k+ Tracks.
+
  ```c++
 struct Record {
     char key[40];
@@ -66,6 +70,8 @@ struct Record {
 };
  ```
 
+Traducción realizada con la versión gratuita del traductor DeepL.com
+
 |    **Campo**    |                            **Descripción**                                          | 
 |:---------------:|:-----------------------------------------------------------------------------------:|
 | ```id```        | Id unique.             |  
@@ -77,6 +83,9 @@ struct Record {
 | ```...``` | ... |
 | ```tempo``` | The overall tempo of track in BPM. |
 
+### Dataset2
+
+El conjunto de datos trata sobre la compra de bicicletas por parte de los usuarios. Contiene 100.000 registros. Este conjunto de datos recoge transacciones de venta detalladas de una cadena de tiendas de bicicletas, con 100.000 registros únicos de ventas de bicicletas. Cada fila representa una única transacción de venta e incluye información sobre el cliente, el modelo de bicicleta, los detalles de la venta y la ubicación de la tienda.
 
  ```c++
 struct Record2 {
