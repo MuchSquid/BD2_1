@@ -6,7 +6,7 @@
 #include <stack>
 #include <queue>
 #include <cstring>
-#include "Record.h"
+#include "Record1.h"
 
 using namespace std;
 
@@ -174,6 +174,7 @@ public:
         record2.right = post_root;
         record.left = t2;
 
+        // Updating heights after the rotation
         record.height = updateHeight(record);
         record2.height = updateHeight(record2);
 
@@ -220,9 +221,10 @@ public:
         }
 
         Record2 Found = getRecord(post_root);
-        if (strcmp(record.id, Found.id) < 0)
+        int comparador = strcmp(record.id,Found.id);
+        if (comparador < 0)
             Found.left = insert(Found.left, record);
-        else if (strcmp(record.id, Found.id) > 0)
+        else if (comparador > 0)
             Found.right = insert(Found.right, record);
         else
             return post_root;
@@ -250,7 +252,7 @@ public:
             return left_rota(post_root);
         }
 
-        return post_root;
+        return balance(post_root);
     }
 
     vector<Record2> inorder(long post_root) {
