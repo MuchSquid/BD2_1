@@ -126,13 +126,13 @@ en una variable ```siguientePos``` de tipo int y un ``esAux`` de tipo bool el cu
 
 1. Función add:
 
-  Descripción: Esta función inserta un nuevo registro en el archivo auxiliar, luego actualiza los punteros del registro anterior en la secuencia, y finalmente, si el tamaño del archivo auxiliar excede ```log(MainSize/2)```, reconstruye el indice (llama a la función rebuild).
-
-  **Complejidad:** La parte inicial de la función implica recorrer los registros del archivo principal(en caso exista un espacio liberado con -2) o auxiliar hasta encontrar la posición adecuada. Esto tiene una complejidad de ``O(n+m)``, donde n es el número de registros en total y m el número de registros en el espacio auxiliar.
-
-  La operación de escritura en el archivo auxiliar toma un tiempo constante ``O(1)``, ya que el nuevo registro se agrega al final del archivo auxiliar. 
-
-  Complejidad total: ``O(n+m)``, ya que en el peor de los casos se debe recorrer todo el archivo principal o auxiliar antes de insertar el nuevo registro.
+    Descripción: Esta función inserta un nuevo registro en el archivo auxiliar, luego actualiza los punteros del registro anterior en la secuencia, y finalmente, si el tamaño del archivo auxiliar excede ```log(MainSize/2)```, reconstruye el indice (llama a la función rebuild).
+  
+    **Complejidad:** La parte inicial de la función implica recorrer los registros del archivo principal(en caso exista un espacio liberado con -2) o auxiliar hasta encontrar la posición adecuada. Esto tiene una complejidad de ``O(n+m)``, donde n es el número de registros en total y m el número de registros en el espacio auxiliar.
+  
+    La operación de escritura en el archivo auxiliar toma un tiempo constante ``O(1)``, ya que el nuevo registro se agrega al final del archivo auxiliar. 
+  
+    Complejidad total: ``O(n+m)``, ya que en el peor de los casos se debe recorrer todo el archivo principal o auxiliar antes de insertar el nuevo registro.
 
 2. Función search:
 
@@ -144,11 +144,11 @@ en una variable ```siguientePos``` de tipo int y un ``esAux`` de tipo bool el cu
 
 3.   Función insertAll:
 
-   Descripción: Esta función inserta todos los registros iniciales desde un vector en el archivo principal. Los registros se ordenan antes de ser escritos en el archivo.
-
-   **Complejidad:** Primero, el vector de registros se ordena, lo cual tiene una complejidad de ``O(m log m)``, donde m es el número de registros en el vector. Luego, los registros se escriben en el archivo principal. Esto tiene una complejidad de ``O(m)``.
-
-   Complejidad total: ```O(m log m)```, donde m es el número de registros iniciales.
+     Descripción: Esta función inserta todos los registros iniciales desde un vector en el archivo principal. Los registros se ordenan antes de ser escritos en el archivo.
+  
+     **Complejidad:** Primero, el vector de registros se ordena, lo cual tiene una complejidad de ``O(m log m)``, donde m es el número de registros en el vector. Luego, los registros se escriben en el archivo principal. Esto tiene una complejidad de ``O(m)``.
+  
+     Complejidad total: ```O(m log m)```, donde m es el número de registros iniciales.
 
 4. Función rangeSearch:
 
@@ -160,11 +160,11 @@ en una variable ```siguientePos``` de tipo int y un ``esAux`` de tipo bool el cu
    Complejidad total: ``O(n)``.
 
 6.   Función rebuild:
-   Descripción: Esta función reconstruye el archivo principal cuando el archivo auxiliar alcanza un tamaño mayor a ```log(MainSize/2)```. Reordena todos los registros y elimina el archivo auxiliar(se vacía), se crea un archivo temporal donde se colocan para luego renombrarlo por el archivo inicial.
-
-   **Complejidad:** Se recorre todo el archivo principal y el archivo auxiliar para leer todos los registros, lo que tiene una complejidad de ``O(n)``, Luego, se escriben todos los registros de nuevo en el archivo principal, lo que tiene una complejidad de ``O(n)``.
-
-   Complejidad total: ``O(n)``.
+     Descripción: Esta función reconstruye el archivo principal cuando el archivo auxiliar alcanza un tamaño mayor a ```log(MainSize/2)```. Reordena todos los registros y elimina el archivo auxiliar(se vacía), se crea un archivo temporal donde se colocan para luego renombrarlo por el archivo inicial.
+  
+     **Complejidad:** Se recorre todo el archivo principal y el archivo auxiliar para leer todos los registros, lo que tiene una complejidad de ``O(n)``, Luego, se escriben todos los registros de nuevo en el archivo principal, lo que tiene una complejidad de ``O(n)``.
+  
+     Complejidad total: ``O(n)``.
 
 
 ## AVL
