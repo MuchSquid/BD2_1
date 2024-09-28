@@ -8,7 +8,6 @@
 - [Técnicas de indexación](#tecnicas-de-indexación)
   - [Sequential File](#sequential-file)
     - [Elementos de ayuda](#elementos-de-ayuda)
-      - [Variables globales](#variables-globales)
     - [`Class Sequential_File`: Constructor](#class-sequential_file-constructor)
     - [`Class Sequential_File`: Funciones](#class-sequential_file-funciones)
     - [Código de prueba](#código-de-prueba)
@@ -115,6 +114,11 @@ struct Record2 {
 # Técnicas de indexación
 ## Sequential File
 Esta técnica de organización se caracteriza, principalmente, por su forma de organizar y almacenar los registros en un archivo de forma secuencial, es decir, uno detrás de otro. Cada record tiene un puntero que apunta al siguiente registro (***posición lógica***), y el último registro apunta a un valor nulo.
+
+### Elementos de ayuda
+
+- Se utilizaron 2 espacios adicionales en cada registro el cual nos ayudara a buscar el siguiente registro mayor que le sigue (ordenados por una key), estos se almacenan
+en una variable ```siguientePos``` de tipo int y un ``esAux`` de tipo bool el cual nos indica si el siguiente elemento esta en el espacio auxiliar o en el principal.
 
 **[COLOCAR IMAGEN]**
 
