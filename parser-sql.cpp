@@ -30,7 +30,7 @@ void Scanner::startLexema() {
     return;
   };
 
-void Scanner::rollBack() { // retract
+void Scanner::rollBack() { 
     if (input[current] != '\0')
       current--;
 };
@@ -278,12 +278,12 @@ bool Parser::isAtEnd() {
 void Parser::parseStatement(){
     if(match(Token::SELECT)){
         if(match(Token::ID)){
-        parseExpression();
+            parseExpression();
         }
         else if(match(Token::ALL))
-        parseCreateTable(nullptr, "");
+            parseCreateTable(nullptr, "");
         else
-        error_message =  "\tError esperaba los datos";
+            error_message =  "\tError esperaba los datos";
         return;
     }
     else if(match(Token::CREATE)){
@@ -555,10 +555,10 @@ void Parser::parseTipoMetodo(string fileName, string tableName){
     }
     if(match(Token::AVL)){
         if(match(Token::SEMICOLON)){
-            if(archivo == "data.csv"){
+            if(archivo == "musica.csv"){
                 remove("avl_data.dat");
                 remove("avl_index.dat");
-                // metodo = new AVLFile<Record1, char*, 20>();
+                metodo = new AVLFile<Record1>(fileName);
                 if (tableName == tablas[1].first) {
                     tablas[1].first = "";
                 }
@@ -566,10 +566,10 @@ void Parser::parseTipoMetodo(string fileName, string tableName){
                 tabla = tablas[0];
                 insertData(fileName);
             } 
-            else if(archivo == "data2.csv"){
+            else if(archivo == "bike.csv"){
                 remove("avl_data.dat");
                 remove("avl_index.dat");
-                // metodo2 = new AVLFile<Record2, char*, 20>();
+                metodo2 = new AVLFile2<Record2>(fileName);
                 if (tableName == tablas[0].first) {
                     tablas[0].first = "";
                 }
@@ -584,7 +584,7 @@ void Parser::parseTipoMetodo(string fileName, string tableName){
         return;
     } else if(match(Token::SEQUENTIAL)){
         if(match(Token::SEMICOLON)){
-            if(archivo == "data.csv"){
+            if(archivo == "musica.csv"){
                 remove("sequential_data.dat");
                 remove("sequential_aux.dat");
                 auto comparator = [](const Record1& a, const Record1& b) {
@@ -605,10 +605,20 @@ void Parser::parseTipoMetodo(string fileName, string tableName){
                 tabla = tablas[0];
                 insertData(fileName);
             } 
-            else if(archivo == "data2.csv"){
+            else if(archivo == "musica.csv"){
                 remove("sequential_data.dat");
                 remove("sequential_aux.dat");
-                // metodo2 = new SequentialFile<Record2, char*>();
+                auto comparator = [](const Record2& a, const Record2& b) {
+                    return string(a.id) < string(b.id);
+                };
+
+                auto printer = [](const Record2& record) {
+                    cout << "----- Registro -----\n";
+                    cout << "Id: " << record.id << "\n";
+                    cout << "Name: " << record.customer << "\n";
+                    cout << "---------------------\n\n";
+                };
+                metodo2 = new SequentialFile<Record2>(fileName, comparator, printer);
                 if (tableName == tablas[0].first) {
                     tablas[0].first = "";
                 }
@@ -624,7 +634,7 @@ void Parser::parseTipoMetodo(string fileName, string tableName){
         return;
     } else if(match(Token::ISAM)){
         if(match(Token::SEMICOLON)){
-            if(archivo == "data.csv"){
+            if(archivo == "musica.csv"){
                 remove("isam_data.dat");
                 remove("isam_index.dat");
                 // delete metodo;
@@ -636,10 +646,10 @@ void Parser::parseTipoMetodo(string fileName, string tableName){
                 tabla = tablas[0];
                 insertData(fileName);
             } 
-            else if(archivo == "data2.csv"){
+            else if(archivo == "bike.csv"){
                 remove("isam_data.dat");
                 remove("isam_index.dat");
-                metodo2 = new ISAM<Record2>(fileName, true);
+                metodo2 = new ISAM<Record2>(fileName, false);
                 if (tableName == tablas[0].first) {
                     tablas[0].first = "";
                 }
@@ -677,11 +687,9 @@ void Parser::parseOp2(string tableName){
         if(v){
         cout << previous->lexema << endl;
         if(match(Token::SEMICOLON)){
-
             bool s = parseBuscarValor(tableName);
-
             if(!s){
-                error_message = "                                                                   No existe un elemento con la llave buscada";
+                error_message = "No existe un elemento con la llave buscada";
                 return;
             }
             datos.clear();

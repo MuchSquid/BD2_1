@@ -8,8 +8,9 @@
 #include <string>
 #include <fstream>
 #include <map>
-// #include "avl.cpp"
-#include "isam.cpp"
+#include "avl.h"
+#include "avl2.h"
+#include "ISAM.h"
 #include "selector.h"
 #include "sequential.cpp"
 
