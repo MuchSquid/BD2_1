@@ -6,7 +6,7 @@
 #include <stack>
 #include <queue>
 #include <cstring>
-#include "Record1.h"
+#include "Record.h"
 
 using namespace std;
 
@@ -367,7 +367,7 @@ public:
 };
 
 void test1(){
-    AVLFile<Record>avlFile("proyecto1.dat");
+    AVLFile<Record2>avlFile("proyecto1.dat");
 
     //Leer el archivo y contar los registros que tiene
     try {
