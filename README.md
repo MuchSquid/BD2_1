@@ -75,7 +75,7 @@ struct Record {
 | ```explicit``` | Artists who created the track. |
 | ```id_artists``` | Id of artists who created the track. |
 | ```...``` | ... |
-| ```energy``` | How energized a song is in range 0 to 1. |
+| ```tempo``` | The overall tempo of track in BPM. |
 
 
 
