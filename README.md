@@ -118,6 +118,8 @@ Esta técnica de organización se caracteriza, principalmente, por su forma de o
 
 **[COLOCAR IMAGEN]**
 
+>**Implementación**: Para la implementación de este algoritmo, se uso la técnica de un espacio auxiliar alfinal de cada registro el cual apunta al siguiente puntero que sea su consecuente de modo que los punteros siempre estaran ordenados apuntando a uno mayor que este el cual se calculca en base al campo principal (PK).
+
 
 
 # Autores
