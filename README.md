@@ -111,6 +111,15 @@ struct Record2 {
 | ```...``` | ... |
 | ```Customer_Age``` |
 
+
+# Técnicas de indexación
+## Sequential File
+Esta técnica de organización se caracteriza, principalmente, por su forma de organizar y almacenar los registros en un archivo de forma secuencial, es decir, uno detrás de otro. Cada record tiene un puntero que apunta al siguiente registro (***posición lógica***), y el último registro apunta a un valor nulo.
+
+**COLOCAR IMAGEN**
+
+
+
 # Autores
 
 |                     **Esteban Vasquez Grados**                   |                                 **Darío Ricardo Nuñes Villacorta**                                 |                       **Yamileth Yarel Rincón Tejada**                     |  **Flavía Ailen Mañuico Quequejana** |   **Maria Fernanda Surco Vergara**  |
