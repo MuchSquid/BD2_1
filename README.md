@@ -116,7 +116,7 @@ struct Record2 {
 ## Sequential File
 Esta técnica de organización se caracteriza, principalmente, por su forma de organizar y almacenar los registros en un archivo de forma secuencial, es decir, uno detrás de otro. Cada record tiene un puntero que apunta al siguiente registro (***posición lógica***), y el último registro apunta a un valor nulo.
 
-**COLOCAR IMAGEN**
+**[COLOCAR IMAGEN]**
 
 
 
