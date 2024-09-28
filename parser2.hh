@@ -18,11 +18,11 @@ using namespace std;
 
 inline SeleccionarMetodo<Record1>* metodo = new SeleccionarMetodo<Record1>();
 inline SeleccionarMetodo<Record2>* metodo2 = new SeleccionarMetodo<Record2>();
-inline pair<string, string> tabla;
 inline vector<Record1> registros1;
 inline vector<Record2> registros2;
 inline string error_message = "";
 inline vector<pair<string,string> > tablas(2);
+inline pair<string, string> tabla;
 
 
 class Token {
@@ -32,6 +32,7 @@ public:
   Type type;
   string lexema;
   Token(Type type):type(type) { lexema = ""; }
+  Token(Type, char c);
   Token(Type type, const string source):type(type) {
     lexema = source;
   }
@@ -109,6 +110,7 @@ public:
   void parse();
 private:
   void show();
+  void showV();
   void parseInsert();
   bool match(Token::Type type);
   bool check(Token::Type ttype);
@@ -120,18 +122,19 @@ private:
   bool parseValuesList();
   bool parseValues();
   void parseExpression();
+  void parseCreateTable(Token* temp, string tableName);
+  void parseEliminarTabla();
+  bool existeTabla(string tableName);
+
   void eliminarValor(string tableName);
   bool parseDelete(string tableName);
 
-  bool existeTabla(string tableName);
-
-  void parseEliminarTabla();
-  void parseCreateTable(Token* temp, string tableName);
-  void parseFile(string tableName);
   void parseIndex(string fileName, string tableName);
   void parseTipoMetodo(string fileName, string tableName);
-  bool parseEqual();
   void parseOp1(string tableName);
+
+  void parseFile(string tableName);
+  bool parseEqual();
 
   void parseOp2(string tableName);
   bool parseBuscarValor(string tableName);
