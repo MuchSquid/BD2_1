@@ -15,7 +15,7 @@
 #include <cstring>
 using namespace std;
 
-struct Record {
+struct Record1 {
     char id[23];
     char name[529];
     char popularity[3];
@@ -40,7 +40,7 @@ struct Record {
     long left = -1;
     long right = -1;
     int height = 1;
-
+    Record1(){};
     // Mostrar datos del registro
     void print() const {
         cout << "ID: " << id << ", Name: " << name << endl;
@@ -64,7 +64,7 @@ struct Record2 {
     char paymentmethod[11];
     char customerage[2];
     char customergender[6];
-    
+    Record2(){};
 
     long left = -1;
     long right = -1;
@@ -81,9 +81,9 @@ struct Record2 {
     }
 };
 
-vector<Record>leerCSV(const string& filename) {
+vector<Record1>leerCSV(const string& filename) {
     ifstream file(filename);
-    vector<Record> records;
+    vector<Record1> records;
     string line;
 
     if (!file.is_open()) {
@@ -94,7 +94,7 @@ vector<Record>leerCSV(const string& filename) {
     while (getline(file, line)) {
         stringstream ss(line);
         string token;
-        Record record;
+        Record1 record;
 
         // Leer cada campo del CSV y asignarlo al record (todas son cadenas de texto)
 
