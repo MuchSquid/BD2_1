@@ -195,7 +195,7 @@ void build_bottom_level() {
 
    
 vector<RecordTipo> search(const char* search_id) {
-    cout << "Buscando ID: " << search_id << endl;
+    // cout << "Buscando ID: " << search_id << endl;
     
     fstream root_index_file(index_paths[0], ios::in | ios::binary);
     PageIndex search_page;
@@ -204,7 +204,7 @@ vector<RecordTipo> search(const char* search_id) {
 
     while (root_index_file.read(reinterpret_cast<char*>(&search_page), sizeof(search_page))) {
         for (size_t i = 0; i < search_page.count; i++) {
-            cout << "Comparando con key: " << search_page.keys[i] << endl;
+            // cout << "Comparando con key: " << search_page.keys[i] << endl;
             if (strcmp(search_id, search_page.keys[i]) <= 0) {
                 found_page_address = search_page.pages[i];
                 found = true;
@@ -218,7 +218,7 @@ vector<RecordTipo> search(const char* search_id) {
         found_page_address = search_page.pages[search_page.count - 1];
     }
 
-    cout << "Página encontrada en el primer nivel: " << found_page_address << endl;
+    // cout << "Página encontrada en el primer nivel: " << found_page_address << endl;
 
     fstream second_index_file(index_paths[1], ios::in | ios::binary);
     PageIndex second_index_page;
@@ -228,7 +228,7 @@ vector<RecordTipo> search(const char* search_id) {
 
     while (second_index_file.read(reinterpret_cast<char*>(&second_index_page), sizeof(second_index_page))) {
         for (size_t i = 0; i < second_index_page.count; i++) {
-            cout << "Comparando con key del segundo nivel: " << second_index_page.keys[i] << endl;
+            // cout << "Comparando con key del segundo nivel: " << second_index_page.keys[i] << endl;
             if (strcmp(search_id, second_index_page.keys[i]) <= 0) {
                 found_second_page_address = second_index_page.pages[i];
                 found = true;
@@ -242,7 +242,7 @@ vector<RecordTipo> search(const char* search_id) {
         found_second_page_address = second_index_page.pages[second_index_page.count - 1];
     }
 
-    cout << "Página encontrada en el segundo nivel: " << found_second_page_address << endl;
+    // cout << "Página encontrada en el segundo nivel: " << found_second_page_address << endl;
 
     fstream data_index_file(index_paths[2], ios::in | ios::binary);
     PageData<RecordTipo>data_page;
@@ -252,7 +252,7 @@ vector<RecordTipo> search(const char* search_id) {
     
     while (data_index_file.read(reinterpret_cast<char*>(&data_page), sizeof(data_page))) {
         for (size_t i = 0; i < data_page.count; i++) {
-            cout << "Comparando con ID: " << data_page.records[i].id << endl;
+            // cout << "Comparando con ID: " << data_page.records[i].id << endl;
             if (strcmp(search_id, data_page.records[i].id) == 0) {
                 result.push_back(data_page.records[i]);
                 cout << "Registro encontrado!" << endl;
@@ -266,7 +266,7 @@ vector<RecordTipo> search(const char* search_id) {
     second_index_file.close();
     data_index_file.close();
     
-    cout << "Número de resultados encontrados: " << result.size() << endl;
+    // cout << "Número de resultados encontrados: " << result.size() << endl;
     return result;
 }
 
@@ -562,116 +562,3 @@ vector<RecordTipo> search(const char* search_id) {
 }
 };
 
-template <typename RecordTipo>
-void pruebaISAM(string csv_path){
-        bool tipo=true;
-        ISAM<RecordTipo> isam(csv_path,tipo);
-        cout << "ISAM construido exitosamente." << endl;
-        const char* busca = "1h4TGS0ytq2EujrSjsbopD";
-        vector<RecordTipo> resultado = isam.search(busca);
-        
-        cout << "Resultados de la búsqueda:" << endl;
-        for (const auto& record : resultado) {
-            cout << "ID: " << record.id << ", Nombre: " << record.name << endl;
-        }
-
-        // Ejemplo de búsqueda por rango
-        const char* start_id = "5HlbF07r4waO8aEZn5pP6l";
-        const char* end_id =   "5L3asAbitjZc0uZsAyqv42";
-        vector<RecordTipo> range_result = isam.range_search(start_id, end_id);
-        
-        cout << "\nResultados de la búsqueda por rango:" << endl;
-        for (const auto& record : range_result) {
-            cout << "ID: " << record.id << ", Nombre: " << record.name << endl;
-        }
-
-        // Ejemplo de eliminación
-        const char* remove_id = "1h4TGS0ytq2EujrSjsbopD";
-        bool removed = isam.remove(remove_id);
-        if (removed) {
-            cout << "\nRegistro con ID " << remove_id << " eliminado exitosamente." << endl;
-        } else {
-            cout << "\nNo se encontró el registro con ID " << remove_id << " para eliminar." << endl;
-        }
-    
-}
-
-//TRUE RECORD 1 //FALSE RECORD 2
-template <typename RecordTipo>
-void pruebaISAM2(string csv_path){
-        bool tipo=false;
-        ISAM<RecordTipo> isam(csv_path,tipo);
-        // isam.print_index_files();
-        cout << "ISAM construido exitosamente." << endl;
-        const char* busca = "000010";
-        vector<RecordTipo> resultado = isam.search(busca);
-        
-        cout << "Resultados de la búsqueda:" << endl;
-        for (const auto& record : resultado) {
-            cout << "ID: " << record.id << ", Nombre: " << record.customer << endl;
-        }
-
-        // Ejemplo de búsqueda por rango
-        const char* start_id = "000019";
-        const char* end_id =   "000030";
-        vector<RecordTipo> range_result = isam.range_search(start_id, end_id);
-        
-        cout << "\nResultados de la búsqueda por rango:" << endl;
-        for (const auto& record : range_result) {
-            cout << "ID: " << record.id << ", Nombre: " << record.customer << endl;
-        }
-
-        // Ejemplo de eliminación
-        const char* remove_id = "000010";
-        bool removed = isam.remove(remove_id);
-        if (removed) {
-            cout << "\nRegistro con ID " << remove_id << " eliminado exitosamente." << endl;
-        } else {
-            cout << "\nNo se encontró el registro con ID " << remove_id << " para eliminar." << endl;
-        }
-    
-}
-
-
-void prubita(){
-   
-    try {
-        string csv_path = "bike.csv";
-        bool tipo = false;
-        ISAM<Record2> isam(csv_path, tipo);
-        cout << "ISAM construido exitosamente." << endl;
-
-        Record2 new_record;
-        strcpy(new_record.id, "100001");
-        strcpy(new_record.date, "2022-01-01");
-        strcpy(new_record.customer, "Juan");
-        strcpy(new_record.model, "Modelo 1");
-        strcpy(new_record.price, "100.00");
-        strcpy(new_record.quantity, "1");
-        strcpy(new_record.storelocation, "Tienda 1");
-        strcpy(new_record.salespersonid, "001");
-        strcpy(new_record.paymentmethod, "Efectivo");
-        strcpy(new_record.customerage, "25");
-        strcpy(new_record.customergender, "Masculino");
-
-        bool added = isam.add(new_record);
-        if (added) {
-            cout << "Registro agregado exitosamente." << endl;
-        } else {
-            cout << "No se pudo agregar el registro." << endl;
-        }
-
-        const char* busca = "100001";
-        vector<Record2> resultado = isam.search(busca);
-        
-        cout << "Resultados de la búsqueda:" << endl;
-        for (const auto& record : resultado) {
-            cout << "ID: " << record.id << ", Nombre: " << record.customer << endl;
-        }
-
-
-    } catch (const exception& e) {
-        cerr << "Error: " << e.what() << endl;
-    }
-
-}
