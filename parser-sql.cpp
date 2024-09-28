@@ -1,4 +1,4 @@
-#include "parser-sql.hh"
+#include "parser_sql.hh"
 using namespace std;
 
 inline static const char* token_names[34]= {"SELECT", "CREATE", "TABLE", "FROM", "ALL", "WHERE", 

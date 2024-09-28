@@ -1,0 +1,9 @@
+/Users/estebanmacbook/Downloads/QT/BD2/build/Desktop_arm_darwin_generic_mach_o_64bit-Debug/CMakeFiles/BD2.dir
+/Users/estebanmacbook/Downloads/QT/BD2/build/Desktop_arm_darwin_generic_mach_o_64bit-Debug/CMakeFiles/edit_cache.dir
+/Users/estebanmacbook/Downloads/QT/BD2/build/Desktop_arm_darwin_generic_mach_o_64bit-Debug/CMakeFiles/rebuild_cache.dir
+/Users/estebanmacbook/Downloads/QT/BD2/build/Desktop_arm_darwin_generic_mach_o_64bit-Debug/CMakeFiles/list_install_components.dir
+/Users/estebanmacbook/Downloads/QT/BD2/build/Desktop_arm_darwin_generic_mach_o_64bit-Debug/CMakeFiles/install.dir
+/Users/estebanmacbook/Downloads/QT/BD2/build/Desktop_arm_darwin_generic_mach_o_64bit-Debug/CMakeFiles/install/local.dir
+/Users/estebanmacbook/Downloads/QT/BD2/build/Desktop_arm_darwin_generic_mach_o_64bit-Debug/CMakeFiles/install/strip.dir
+/Users/estebanmacbook/Downloads/QT/BD2/build/Desktop_arm_darwin_generic_mach_o_64bit-Debug/CMakeFiles/BD2_autogen_timestamp_deps.dir
+/Users/estebanmacbook/Downloads/QT/BD2/build/Desktop_arm_darwin_generic_mach_o_64bit-Debug/CMakeFiles/BD2_autogen.dir

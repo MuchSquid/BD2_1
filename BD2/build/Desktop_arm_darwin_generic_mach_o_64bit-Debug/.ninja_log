@@ -1,0 +1,15 @@
+# ninja log v6
+164	1081	1727379001797418623	CMakeFiles/BD2.dir/BD2_autogen/mocs_compilation.cpp.o	ef9d5adcb84060a6
+35	181	1727476105059943214	/Users/estebanmacbook/Downloads/QT/BD2/build/Desktop_arm_darwin_generic_mach_o_64bit-Debug/BD2_autogen/EWIEGA46WW/qrc_media.cpp	a6c4353e1ff59d80
+181	2826	1727476105062516220	CMakeFiles/BD2.dir/BD2_autogen/EWIEGA46WW/qrc_media.cpp.o	e1413d915707ce2
+6	49	1727544081575572636	/Users/estebanmacbook/Downloads/QT/BD2/build/Desktop_arm_darwin_generic_mach_o_64bit-Debug/BD2_autogen/mocs_compilation.cpp	c8f5506aac4e480d
+6	49	1727544081575572636	BD2_autogen/mocs_compilation.cpp	c8f5506aac4e480d
+164	1146	1727379001797787461	CMakeFiles/BD2.dir/main.cpp.o	b3213963a854f479
+49	1995	1727544081619176984	CMakeFiles/BD2.dir/mainwindow.cpp.o	a9c9f7cecd815939
+38	1043	1727543589123496338	CMakeFiles/BD2.dir/parser_sql.cpp.o	1fff84678f2979db
+6	49	1727544081575572636	/Users/estebanmacbook/Downloads/QT/BD2/build/Desktop_arm_darwin_generic_mach_o_64bit-Debug/BD2_autogen/timestamp	c8f5506aac4e480d
+2	161	1727544124613081770	build.ninja	cdd276a8a3d6d5cf
+6	49	1727544081575572636	BD2_autogen/timestamp	c8f5506aac4e480d
+937	1071	1727543931105145985	BD2.app/Contents/MacOS/BD2	ea8751b557d602dc
+33	454	1727543220630515585	CMakeFiles/BD2.dir/sequential.cpp.o	41c011d7669b8fd0
+35	181	1727476105059943214	BD2_autogen/EWIEGA46WW/qrc_media.cpp	a6c4353e1ff59d80

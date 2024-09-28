@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/media">
+        <file>Home.png</file>
+        <file>File.png</file>
+        <file>zoom.png</file>
+        <file>about.png</file>
+        <file>music.png</file>
+    </qresource>
+</RCC>

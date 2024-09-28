@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-a7538e8bb8b7daaa9651.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "BD2",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "BD2::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-BD2-Debug-172652693007f1b628b8.json",
+					"name" : "BD2",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "BD2_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-BD2_autogen-Debug-aa9b1b99cf9911e60e1e.json",
+					"name" : "BD2_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "BD2_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-BD2_autogen_timestamp_deps-Debug-a4b0959b631f8e48fdaa.json",
+					"name" : "BD2_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/estebanmacbook/Downloads/QT/BD2/build/Desktop_arm_darwin_generic_mach_o_64bit-Debug",
+		"source" : "/Users/estebanmacbook/Downloads/QT/BD2"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}
