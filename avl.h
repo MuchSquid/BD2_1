@@ -16,11 +16,13 @@ public:
         return find(pos_root, key);
     }
 
-    void insert(Record record) {
-        pos_root = insert(pos_root, record);
+    bool add(Record1 record) {
+        bool eliminated = false;
+        pos_root = insert(pos_root, record,eliminated);
+        return eliminated
     }
 
-    vector<Record> inorder() {
+    vector<Record1> inorder() {
         return inorder(pos_root);
     }
 
@@ -34,19 +36,19 @@ public:
         return eliminated;
     }
 
-    Record findRecord(const char* key) {
-        return findRecord(pos_root, key);
+    Record1 search(const char* key) {
+        return search(pos_root, key);
     }
 
-    Record if_not_found_succesor(const char* key) {
+    Record1 if_not_found_succesor(const char* key) {
         return if_not_found_succesor(pos_root, key);
     }
 
-    Record if_not_found_predecessor(const char* key) {
+    Record1 if_not_found_predecessor(const char* key) {
         return if_not_found_predecessor(pos_root, key);
     }
 
-    vector<Record> rangeSearch(const char* begin_key, const char* end_key) {
+    vector<Record1> rangeSearch(const char* begin_key, const char* end_key) {
         if (!find(begin_key))
             begin_key = if_not_found_succesor(begin_key).id;
         if (!find(end_key))
@@ -54,11 +56,11 @@ public:
         return rangeSearch(pos_root, begin_key, end_key);
     }
 
-    Record if_not_found_succesor(long pos_long, const char* key) {
-        Record n;
-        stack<Record> mstack;
+    Record1 if_not_found_succesor(long pos_long, const char* key) {
+        Record1 n;
+        stack<Record1> mstack;
         while (pos_long != -1) {
-            Record temp = getRecord(pos_long);
+            Record1 temp = getRecord(pos_long);
             if (strcmp(temp.id, key) > 0) {
                 mstack.push(temp);
                 pos_long = temp.left;
@@ -72,11 +74,11 @@ public:
         return n;
     }
 
-    Record if_not_found_predecessor(long pos_long, const char* key) {
-        Record n;
-        queue<Record> mqueue;
+    Record1 if_not_found_predecessor(long pos_long, const char* key) {
+        Record1 n;
+        queue<Record1> mqueue;
         while (pos_long != -1) {
-            Record temp = getRecord(pos_long);
+            Record1 temp = getRecord(pos_long);
             if (strcmp(temp.id, key) < 0) {
                 mqueue.push(temp);
                 pos_long = temp.right;
@@ -93,7 +95,7 @@ public:
     bool find(long post_root, const char* key) {
         if (post_root == -1)
             return false;
-        Record Found = getRecord(post_root);
+        Record1 Found = getRecord(post_root);
         if (strcmp(Found.id, key) == 0)
             return true;
         if (strcmp(Found.id, key) < 0)
@@ -101,63 +103,63 @@ public:
         return find(Found.left, key);
     }
 
-    Record findRecord(long post_root, const char* key) {
+    Record1 search(long post_root, const char* key) {
         if (post_root == -1) {
-            Record Empty;
+            Record1 Empty;
             strcpy(Empty.id, "-1");
             return Empty;
         }
-        Record Found = getRecord(post_root);
+        Record1 Found = getRecord(post_root);
         if (strcmp(Found.id, key) == 0)
             return Found;
         if (strcmp(Found.id, key) < 0)
-            return findRecord(Found.right, key);
-        return findRecord(Found.left, key);
+            return search(Found.right, key);
+        return search(Found.left, key);
     }
 
     long end_of_file() {
         ifstream inFile(filename, ios::binary | ios::ate);
-        return inFile.tellg() / sizeof(Record);
+        return inFile.tellg() / sizeof(Record1);
     }
 
     int height(long post_root) {
         if (post_root == -1)
             return -1;
-        Record Found = getRecord(post_root);
+        Record1 Found = getRecord(post_root);
         return Found.height;
     }
 
-    int updateHeight(Record& record) {
+    int updateHeight(Record1& record) {
         return 1 + max(height(record.left), height(record.right));
     }
 
     int balancingFactor(long post_root) {
         if (post_root == -1)
             return 0;
-        Record Found = getRecord(post_root);
+        Record1 Found = getRecord(post_root);
         return height(Found.left) - height(Found.right);
     }
 
-    Record getRecord(long post) {
-        Record Found;
+    Record1 getRecord(long post) {
+        Record1 Found;
         ifstream inFile(filename, ios::binary);
-        inFile.seekg(post * sizeof(Record));
-        inFile.read(reinterpret_cast<char*>(&Found), sizeof(Record));
+        inFile.seekg(post * sizeof(Record1));
+        inFile.read(reinterpret_cast<char*>(&Found), sizeof(Record1));
         inFile.close();
         return Found;
     }
 
-    void updateRecord(long pos, Record record) {
+    void updateRecord(long pos, Record1 record) {
         ofstream outFile(filename, ios::binary | ios::in | ios::out);
-        outFile.seekp(pos * sizeof(Record));
-        outFile.write(reinterpret_cast<const char*>(&record), sizeof(Record));
+        outFile.seekp(pos * sizeof(Record1));
+        outFile.write(reinterpret_cast<const char*>(&record), sizeof(Record1));
         outFile.close();
     }
 
     long right_rota(long post_root) {
-        Record record = getRecord(post_root);
+        Record1 record = getRecord(post_root);
         long child = record.left;
-        Record record2 = getRecord(child);
+        Record1 record2 = getRecord(child);
         long t2 = record2.right;
 
         record2.right = post_root;
@@ -173,9 +175,9 @@ public:
     }
 
     long left_rota(long post_root) {
-        Record record = getRecord(post_root);
+        Record1 record = getRecord(post_root);
         long child = record.right;
-        Record record2 = getRecord(child);
+        Record1 record2 = getRecord(child);
         long t2 = record2.left;
 
         record2.left = post_root;
@@ -194,25 +196,26 @@ public:
         if(pos_root == -1)
             return 0;
 
-        Record record = getRecord(pos_root);
+        Record1 record = getRecord(pos_root);
         int left = countRecords(record.left);
         int right = countRecords(record.right);
 
         return 1 + left + right;    
     }
 
-    long insert(long post_root, Record record) {
+    long insert(long post_root, Record1 record, bool eliminated) {
         if (post_root == -1) {
             long end_pos = end_of_file();
             updateRecord(end_pos, record);
+            eliminated = true;
             return end_pos;
         }
 
-        Record Found = getRecord(post_root);
+        Record1 Found = getRecord(post_root);
         if (strcmp(record.id, Found.id) < 0)
-            Found.left = insert(Found.left, record);
+            Found.left = insert(Found.left, record, eliminated);
         else if (strcmp(record.id, Found.id) > 0)
-            Found.right = insert(Found.right, record);
+            Found.right = insert(Found.right, record, eliminated);
         else
             return post_root;
 
@@ -238,24 +241,24 @@ public:
             updateRecord(post_root, Found);
             return left_rota(post_root);
         }
-
+        eliminated = true;
         return post_root;
     }
 
-    vector<Record> inorder(long post_root) {
-        vector<Record> result;
+    vector<Record1> inorder(long post_root) {
+        vector<Record1> result;
         if (post_root != -1) {
-            vector<Record> leftResult = inorder(getRecord(post_root).left);
+            vector<Record1> leftResult = inorder(getRecord(post_root).left);
             result.insert(result.end(), leftResult.begin(), leftResult.end());
             result.push_back(getRecord(post_root));
-            vector<Record> rightResult = inorder(getRecord(post_root).right);
+            vector<Record1> rightResult = inorder(getRecord(post_root).right);
             result.insert(result.end(), rightResult.begin(), rightResult.end());
         }
         return result;
     }
 
     long minimo(long post_root){
-        Record Found = getRecord(post_root);
+        Record1 Found = getRecord(post_root);
         while(Found.left != -1){
             post_root = Found.left;
             Found = getRecord(post_root);
@@ -269,7 +272,7 @@ public:
             return post_root;
         }
 
-        Record Found = getRecord(post_root);
+        Record1 Found = getRecord(post_root);
         if (strcmp(key, Found.id) < 0)
             Found.left = remove(Found.left, key, eliminated);
         else if (strcmp(key, Found.id) > 0)
@@ -287,7 +290,7 @@ public:
                 }
             } else {
                 long temp = minimo(post_root);
-                Record temporal = getRecord(temp);
+                Record1 temporal = getRecord(temp);
                 strncpy(Found.id, temporal.id, sizeof(Found.id));
                 strncpy(Found.name, temporal.name, sizeof(Found.name));
                 strncpy(Found.popularity, temporal.popularity, sizeof(Found.popularity));
@@ -341,14 +344,14 @@ public:
         return post_root;
     }
 
-    vector<Record> rangeSearch(long post_root, const char* begin_key, const char* end_key) {
-        vector<Record> records;
+    vector<Record1> rangeSearch(long post_root, const char* begin_key, const char* end_key) {
+        vector<Record1> records;
         if (post_root == -1)
             return records;
 
-        Record Found = getRecord(post_root);
+        Record1 Found = getRecord(post_root);
         if (strcmp(begin_key, Found.id) < 0) {
-            vector<Record> leftRecords = rangeSearch(Found.left, begin_key, end_key);
+            vector<Record1> leftRecords = rangeSearch(Found.left, begin_key, end_key);
             records.insert(records.end(), leftRecords.begin(), leftRecords.end());
         }
 
@@ -356,7 +359,7 @@ public:
             records.push_back(Found);
 
         if (strcmp(end_key, Found.id) > 0) {
-            vector<Record> rightRecords = rangeSearch(Found.right, begin_key, end_key);
+            vector<Record1> rightRecords = rangeSearch(Found.right, begin_key, end_key);
             records.insert(records.end(), rightRecords.begin(), rightRecords.end());
         }
 
@@ -364,119 +367,15 @@ public:
     }
 };
 
-
-vector<Record> leerCSV(const string& filename) {
-    ifstream file(filename);
-    vector<Record> records;
-    string line;
-
-    if (!file.is_open()) {
-        cerr << "No se pudo abrir el archivo.\n";
-        return records;
-    }
-
-    while (getline(file, line)) {
-        stringstream ss(line);
-        string token;
-        Record record;
-
-        // Leer cada campo del CSV y asignarlo al record (todas son cadenas de texto)
-
-        getline(ss, token, ',');
-        strncpy(record.id, token.c_str(), sizeof(record.id));
-        record.id[sizeof(record.id) - 1] = '\0'; 
-
-        getline(ss, token, ',');
-        strncpy(record.name, token.c_str(), sizeof(record.name));
-        record.name[sizeof(record.name) - 1] = '\0';
-
-        getline(ss, token, ',');
-        strncpy(record.popularity, token.c_str(), sizeof(record.popularity));
-        record.popularity[sizeof(record.popularity) - 1] = '\0';
-
-        getline(ss, token, ',');
-        strncpy(record.duration_ms, token.c_str(), sizeof(record.duration_ms));
-        record.duration_ms[sizeof(record.duration_ms) - 1] = '\0';
-
-        getline(ss, token, ',');
-        strncpy(record.explicit_, token.c_str(), sizeof(record.explicit_));
-        record.explicit_[sizeof(record.explicit_) - 1] = '\0';
-
-        getline(ss, token, ',');
-        strncpy(record.artists, token.c_str(), sizeof(record.artists));
-        record.artists[sizeof(record.artists) - 1] = '\0';
-
-        getline(ss, token, ',');
-        strncpy(record.id_artists, token.c_str(), sizeof(record.id_artists));
-        record.id_artists[sizeof(record.id_artists) - 1] = '\0';
-
-        getline(ss, token, ',');
-        strncpy(record.release_date, token.c_str(), sizeof(record.release_date));
-        record.release_date[sizeof(record.release_date) - 1] = '\0';
-
-        getline(ss, token, ',');
-        strncpy(record.danceability, token.c_str(), sizeof(record.danceability));
-        record.danceability[sizeof(record.danceability) - 1] = '\0';
-
-        getline(ss, token, ',');
-        strncpy(record.energy, token.c_str(), sizeof(record.energy));
-        record.energy[sizeof(record.energy) - 1] = '\0';
-
-        getline(ss, token, ',');
-        strncpy(record.key_str, token.c_str(), sizeof(record.key_str));
-        record.key_str[sizeof(record.key_str) - 1] = '\0';
-        
-        getline(ss, token, ',');
-        strncpy(record.loudness, token.c_str(), sizeof(record.loudness));
-        record.loudness[sizeof(record.loudness) - 1] = '\0';
-
-        getline(ss, token, ',');
-        strncpy(record.mode, token.c_str(), sizeof(record.mode));
-        record.mode[sizeof(record.mode) - 1] = '\0';
-
-        getline(ss, token, ',');
-        strncpy(record.speechiness, token.c_str(), sizeof(record.speechiness));
-        record.speechiness[sizeof(record.speechiness) - 1] = '\0';
-
-        getline(ss, token, ',');
-        strncpy(record.acousticness, token.c_str(), sizeof(record.acousticness));
-        record.acousticness[sizeof(record.acousticness) - 1] = '\0';
-
-        getline(ss, token, ',');
-        strncpy(record.instrumentalness, token.c_str(), sizeof(record.instrumentalness));
-        record.instrumentalness[sizeof(record.instrumentalness) - 1] = '\0';
-
-        getline(ss, token, ',');
-        strncpy(record.liveness, token.c_str(), sizeof(record.liveness));
-        record.liveness[sizeof(record.liveness) - 1] = '\0';
-
-        getline(ss, token, ',');
-        strncpy(record.valence, token.c_str(), sizeof(record.valence));
-        record.valence[sizeof(record.valence) - 1] = '\0';
-
-        getline(ss, token, ',');
-        strncpy(record.tempo, token.c_str(), sizeof(record.tempo));
-        record.tempo[sizeof(record.tempo) - 1] = '\0';
-
-        getline(ss, token, ',');
-        strncpy(record.time_signature, token.c_str(), sizeof(record.time_signature));
-        record.time_signature[sizeof(record.time_signature) - 1] = '\0';
-        // Agregar el record al vector
-        records.push_back(record);
-    }
-    file.close();
-    return records;
-}
-
 void test(){
-    AVLFile<Record>avlFile("proyecto.dat");
+    AVLFile<Record1>avlFile("proyecto.dat");
 
 
     //Leer el archivo y contar los registros que tiene
     try {
-        vector<Record> records = leerCSV("dataMergeLimpioFinal.csv");
+        vector<Record1> records = leerCSV("dataMergeLimpioFinal.csv");
         for (const auto& record : records) {
-            avlFile.insert(record);
+            avlFile.add(record);
         }
         int c = avlFile.countRecords();    
         cout << "El archivo tiene " << c << " registros" << endl;
@@ -485,7 +384,7 @@ void test(){
     }
 
 
-    Record prueba;
+    Record1 prueba;
     strncpy(prueba.id, "2Be2FRskn33cqPyeSdTqFd", sizeof(prueba.id));
     prueba.id[sizeof(prueba.id) - 1] = '\0';
 
@@ -548,7 +447,7 @@ void test(){
 
     //agregar Registro    
     try {
-        avlFile.insert(prueba);
+        avlFile.add(prueba);
         cout << "Registro " << prueba.id << " agregado exitosamente" << '\n';
     }catch (const char* msg){
         cerr << msg << endl;
@@ -567,7 +466,7 @@ void test(){
         bool founded = avlFile.find("2Be2FRskn33cqPyeSdTqFd");
         if(founded){
             cout << "Registro encontrado: ";
-            Record founded = avlFile.findRecord("2Be2FRskn33cqPyeSdTqFd");
+            Record1 founded = avlFile.search("2Be2FRskn33cqPyeSdTqFd");
             founded.print();
         }
     }catch (const char* msg){
@@ -598,7 +497,7 @@ void test(){
     //Búsqueda por rango
     try
     {
-        vector<Record> founded = avlFile.rangeSearch("0Dd9ImXtAtGwsmsAD69KZT","0kCB1bDVBC8gWCFcnJyIZc");
+        vector<Record1> founded = avlFile.rangeSearch("0Dd9ImXtAtGwsmsAD69KZT","0kCB1bDVBC8gWCFcnJyIZc");
         cout << "Registros encontrados exitosamente" << endl;
         for (const auto& record : founded) {
             record.print();
