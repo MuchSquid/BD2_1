@@ -27,8 +27,9 @@ public:
         return find(pos_root, key);
     }
 
-    void insert(Record2 record) {
-        pos_root = insert(pos_root, record);
+    bool add(Record2 record) {
+        bool added = false;
+        pos_root = insert(pos_root, record, added);
     }
 
     vector<Record2> inorder() {
@@ -45,8 +46,8 @@ public:
         return eliminated;
     }
 
-    Record2 findRecord(const char* key) {
-        return findRecord(pos_root, key);
+    Record2 search(const char* key) {
+        return search(pos_root, key);
     }
 
     Record2 if_not_found_succesor(const char* key) {
@@ -112,7 +113,7 @@ public:
         return find(Found.left, key);
     }
 
-    Record2 findRecord(long post_root, const char* key) {
+    Record2 search(long post_root, const char* key) {
         if (post_root == -1) {
             Record2 Empty;
             strcpy(Empty.id, "-1");
@@ -122,8 +123,8 @@ public:
         if (strcmp(Found.id, key) == 0)
             return Found;
         if (strcmp(Found.id, key) < 0)
-            return findRecord(Found.right, key);
-        return findRecord(Found.left, key);
+            return search(Found.right, key);
+        return search(Found.left, key);
     }
 
     long end_of_file() {
@@ -213,10 +214,11 @@ public:
         return 1 + left + right;    
     }
 
-    long insert(long post_root, Record2 record) {
+    long insert(long post_root, Record2 record, bool added) {
         if (post_root == -1) {
             long end_pos = end_of_file();
             updateRecord(end_pos, record);
+            added = true;
             return end_pos;
         }
 
@@ -252,6 +254,7 @@ public:
             return left_rota(post_root);
         }
 
+        added = true;
         return balance(post_root);
     }
 
@@ -375,7 +378,7 @@ void test1(){
     try {
         vector<Record2> records = leerCSV2("bike2.csv");
         for (const auto& record : records) {
-            avlFile.insert(record);
+            avlFile.add(record);
         }
         int c = avlFile.countRecords();    
         cout << "El archivo tiene " << c << " registros" << endl;
@@ -385,7 +388,7 @@ void test1(){
 
 
     Record2 prueba;
-    strncpy(prueba.id, "000042", sizeof(prueba.id));
+    strncpy(prueba.id, "000022", sizeof(prueba.id));
     prueba.id[sizeof(prueba.id) - 1] = '\0';
 
     strncpy(prueba.date, "21-12-2022", sizeof(prueba.date));
@@ -420,7 +423,7 @@ void test1(){
 
     //agregar Registro    
     try {
-        avlFile.insert(prueba);
+        avlFile.add(prueba);
         cout << "Registro " << prueba.id << " agregado exitosamente" << '\n';
     }catch (const char* msg){
         cerr << msg << endl;
@@ -436,10 +439,10 @@ void test1(){
 
     //buscar Registro
     try {
-        bool founded = avlFile.find("000042");
+        bool founded = avlFile.find("000022");
         if(founded){
             cout << "Registro encontrado: ";
-            Record2 founded = avlFile.findRecord("000042");
+            Record2 founded = avlFile.search("000042");
             founded.print();
         }
     }catch (const char* msg){
