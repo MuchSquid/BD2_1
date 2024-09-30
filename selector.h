@@ -1,7 +1,7 @@
 #pragma once
 #include <utility>
 #include <vector>
-#include "struct.h"
+#include "Record.h"
 
 
 template<typename R>
@@ -22,6 +22,10 @@ public:
   }
 
   virtual void display_all(){
+    return;
+  }
+
+  virtual void insertAll(vector<R> records){
     return;
   }
 
