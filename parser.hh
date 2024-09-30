@@ -13,7 +13,7 @@
 #include "ISAM.h"
 #include "selector.h"
 // #include "Record.h"
-// #include "sequential.cpp"
+#include "sequential.h"
 
 using namespace std;
 
