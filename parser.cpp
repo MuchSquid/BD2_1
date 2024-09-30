@@ -850,7 +850,7 @@ void Parser::parseTipoMetodo(string fileName, string tableName){
                 // insertData(fileName);
               cout << "Tabla con musica.csv creada" << endl;
             } 
-            else if(archivo == "bike2.csv"){
+            else if(archivo == "bike.csv"){
                 remove("datos_aux.dat");
                 remove("datos.dat");
                 auto comparator = [](const Record2& a, const Record2& b) {
