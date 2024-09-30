@@ -9,10 +9,11 @@
 #include <fstream>
 #include <map>
 #include "avl.h"
-#include "avl2.h"
+// #include "avl2.h"
 #include "ISAM.h"
 #include "selector.h"
-#include "sequential.cpp"
+// #include "Record.h"
+// #include "sequential.cpp"
 
 using namespace std;
 
