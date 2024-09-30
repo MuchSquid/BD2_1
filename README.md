@@ -182,7 +182,8 @@ en una variable ```siguientePos``` de tipo int y un ``esAux`` de tipo bool el cu
 La clase implementa un árbol balanceado donde la diferencia entre raama izquierda y derecha no supera el 1 0 -1.
 
 **Estructura principal**
-*Avl File: Contiene un long que piene ser la raiz, y tambien se le agregó 3 atributos a los records, left, right y heigh, que vienen a ser 2 refencias a los hijos del nodo y su altura
+
+**Avl File**: Contiene un long que piene ser la raiz, y tambien se le agregó 3 atributos a los records, left, right y heigh, que vienen a ser 2 refencias a los hijos del nodo y su altura
 
 <p align="center">
   <img src="img/avl.png">
