@@ -207,6 +207,10 @@ La clase implementa un árbol balanceado donde la diferencia entre raama izquier
 ## ISAM - SPARSE INDEX
 La clase ISAM implementa un método de acceso secuencial indexado en dos niveles para gestionar grandes volúmenes de datos. La clase divide los datos en páginas y utiliza índices jerárquicos para realizar operaciones eficientes sobre el almacenamiento de datos.
 
+<p align="center">
+  <img src="img/sparseIndex.png">
+</p>
+
 **Estructuras principales:**
 * PageData: Contiene un arreglo de registros con tamaño fijo (N = 100), una cuenta de registros (count), y un puntero (nextPage) para manejar páginas desbordadas.
 * PageIndex: Contiene las claves (keys) para identificar páginas y punteros (pages) a páginas en niveles inferiores. También tiene una cuenta de claves (count).
@@ -215,6 +219,10 @@ La clase ISAM implementa un método de acceso secuencial indexado en dos niveles
 1.  add (Insertar)
 
     **Descripción:** Inserta un nuevo registro en el archivo de datos, actualizando las páginas de índices si es necesario. Si una página de datos está llena, se maneja a través del enlace de desbordamiento sin dividir la página.
+
+    <p align="center">
+      <img src="img/insertIsam.png"
+    </p>
 
     **Complejidad:** En promedio es O(logn) para localizar la página correcta a través de los índices y O(1) para insertar en la página. En el peor caso, si hay desbordamiento y hay que enlazar nuevas páginas, se mantiene dentro de O(logn).
 
