@@ -119,6 +119,9 @@ struct Record2 {
 | ```Customer_Age``` |
 
 
+Para descargar ambas datas, ingresar a este link y descargarla: https://drive.google.com/drive/folders/1tby_QFQsNqay1BKkjxhhAVCWtsW2MKic?usp=sharing
+
+
 # Técnicas de indexación
 ## Sequential File
 Esta técnica de organización se caracteriza, principalmente, por su forma de organizar y almacenar los registros en un archivo de forma secuencial, es decir, uno detrás de otro. Cada record tiene un puntero que apunta al siguiente registro (***posición lógica***), y el último registro apunta a un valor nulo.
@@ -287,17 +290,6 @@ Implementamos un analizador (Parser) y un Scánner para procesar una versión si
 
 ## Errores y Mensajes
 - El código incluye mensajes de error que se muestran al usuario cuando se encuentra un problema en el análisis sintáctico, como caracteres no reconocidos o errores en la formación de las sentencias SQL.
-
-## Datas utilizada
-
-Las base de datos utilizadas son `bike.csv` y `musica.csv`.
-
-`bike.csv`: La cual es una dataset de la compra de bicicletas con más de 100k datos.
-
-`musica.csv`: La cual es una dataset de Spotify 1921-2020, con más de 600k Tracks.
-
-Para descargar ambas datas, ingresar a este link y descargarla: https://drive.google.com/drive/folders/1tby_QFQsNqay1BKkjxhhAVCWtsW2MKic?usp=sharing
-
 
 
 # Autores
