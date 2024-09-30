@@ -8,46 +8,11 @@
 #include <cstdio>
 #include <functional>
 #include <type_traits>
+#include "Record.h"
 
 using namespace std;
 
-
-struct Record {
-    char key[40];
-    char id[200];
-    char name[100];
-    char popularity[10];
-    char duration_ms[15];
-    char explicit_[5];
-    char artists[200];
-    char id_artists[100];
-    char release_date[15];
-    char danceability[10];
-    char energy[10];
-    char loudness[10];
-    char mode[5];
-    char speechiness[10];
-    char acousticness[10];
-    char instrumentalness[10];
-    char liveness[10];
-    char valence[10];
-    char tempo[10];
-};
-
-struct Record2 {
-    char id[7];
-    char date[10];
-    char customer[4];
-    char model[13];
-    char price[7];
-    char quantity[2];
-    char storelocation[12];
-    char salespersonid[3];
-    char paymentmethod[11];
-    char customerage[3];
-    char customergender[6];
-};
-
+// Eliminamos las definiciones de Record y Record2 ya que ahora están en Record.h
 
 struct Cabezera {
     int size;
@@ -316,10 +281,9 @@ public:
                 mainFile.read(reinterpret_cast<char*>(&isAux), sizeof(bool));
             }
 
-
             string key;
-            if constexpr (is_same<RecordType, Record>::value) {
-                key = string(temp.key);
+            if constexpr (is_same<RecordType, Record1>::value) {
+                key = string(temp.id);
             } else if constexpr (is_same<RecordType, Record2>::value) {
                 key = string(temp.id);
             }
@@ -375,8 +339,8 @@ public:
             }
 
             string tempKey;
-            if constexpr (is_same<RecordType, Record>::value) {
-                tempKey = string(temp.key);
+            if constexpr (is_same<RecordType, Record1>::value) {
+                tempKey = string(temp.id);
             } else if constexpr (is_same<RecordType, Record2>::value) {
                 tempKey = string(temp.id);
             }
@@ -454,7 +418,6 @@ public:
         newMainFile.seekp(0, ios::beg);
         newMainFile.write(reinterpret_cast<const char*>(&newCabezera), sizeof(Cabezera));
 
-
         for (size_t i = 0; i < recordsToWrite.size(); ++i) {
             newMainFile.write(reinterpret_cast<const char*>(&recordsToWrite[i]), sizeof(RecordType));
             int siguientePos = (i < recordsToWrite.size() - 1) ? (i + 2) : -1; // Posición basada en 1
@@ -498,14 +461,15 @@ template <typename RecordType>
 vector<RecordType> readCSV(const string& filename);
 
 template <>
-vector<Record> readCSV<Record>(const string& filename) {
-    vector<Record> records;
+vector<Record1> readCSV<Record1>(const string& filename) {
+    vector<Record1> records;
     ifstream file(filename);
     if (!file.is_open()) {
         throw("No se pudo abrir el archivo CSV.");
     }
 
     string line;
+    getline(file, line); // Saltar el encabezado
     while (getline(file, line)) {
         if (line.empty()) continue;
 
@@ -517,21 +481,56 @@ vector<Record> readCSV<Record>(const string& filename) {
             fields.push_back(field);
         }
 
-        if (fields.size() < 19) {
+        if (fields.size() < 20) {
             cerr << "Línea con campos insuficientes: " << line << endl;
             continue;
         }
 
-        Record record;
+        Record1 record;
 
-        strncpy(record.key, fields[0].c_str(), sizeof(record.key));
-        record.key[sizeof(record.key) - 1] = '\0';
+        int idx = 0;
+        strncpy(record.id, fields[idx++].c_str(), sizeof(record.id));
+        strncpy(record.name, fields[idx++].c_str(), sizeof(record.name));
+        strncpy(record.popularity, fields[idx++].c_str(), sizeof(record.popularity));
+        strncpy(record.duration_ms, fields[idx++].c_str(), sizeof(record.duration_ms));
+        strncpy(record.explicit_, fields[idx++].c_str(), sizeof(record.explicit_));
+        strncpy(record.artists, fields[idx++].c_str(), sizeof(record.artists));
+        strncpy(record.id_artists, fields[idx++].c_str(), sizeof(record.id_artists));
+        strncpy(record.release_date, fields[idx++].c_str(), sizeof(record.release_date));
+        strncpy(record.danceability, fields[idx++].c_str(), sizeof(record.danceability));
+        strncpy(record.energy, fields[idx++].c_str(), sizeof(record.energy));
+        strncpy(record.key_str, fields[idx++].c_str(), sizeof(record.key_str));
+        strncpy(record.loudness, fields[idx++].c_str(), sizeof(record.loudness));
+        strncpy(record.mode, fields[idx++].c_str(), sizeof(record.mode));
+        strncpy(record.speechiness, fields[idx++].c_str(), sizeof(record.speechiness));
+        strncpy(record.acousticness, fields[idx++].c_str(), sizeof(record.acousticness));
+        strncpy(record.instrumentalness, fields[idx++].c_str(), sizeof(record.instrumentalness));
+        strncpy(record.liveness, fields[idx++].c_str(), sizeof(record.liveness));
+        strncpy(record.valence, fields[idx++].c_str(), sizeof(record.valence));
+        strncpy(record.tempo, fields[idx++].c_str(), sizeof(record.tempo));
+        strncpy(record.time_signature, fields[idx++].c_str(), sizeof(record.time_signature));
 
-        strncpy(record.id, fields[1].c_str(), sizeof(record.id));
+        // Asegurar la terminación nula
         record.id[sizeof(record.id) - 1] = '\0';
-
-        strncpy(record.name, fields[2].c_str(), sizeof(record.name));
         record.name[sizeof(record.name) - 1] = '\0';
+        record.popularity[sizeof(record.popularity) - 1] = '\0';
+        record.duration_ms[sizeof(record.duration_ms) - 1] = '\0';
+        record.explicit_[sizeof(record.explicit_) - 1] = '\0';
+        record.artists[sizeof(record.artists) - 1] = '\0';
+        record.id_artists[sizeof(record.id_artists) - 1] = '\0';
+        record.release_date[sizeof(record.release_date) - 1] = '\0';
+        record.danceability[sizeof(record.danceability) - 1] = '\0';
+        record.energy[sizeof(record.energy) - 1] = '\0';
+        record.key_str[sizeof(record.key_str) - 1] = '\0';
+        record.loudness[sizeof(record.loudness) - 1] = '\0';
+        record.mode[sizeof(record.mode) - 1] = '\0';
+        record.speechiness[sizeof(record.speechiness) - 1] = '\0';
+        record.acousticness[sizeof(record.acousticness) - 1] = '\0';
+        record.instrumentalness[sizeof(record.instrumentalness) - 1] = '\0';
+        record.liveness[sizeof(record.liveness) - 1] = '\0';
+        record.valence[sizeof(record.valence) - 1] = '\0';
+        record.tempo[sizeof(record.tempo) - 1] = '\0';
+        record.time_signature[sizeof(record.time_signature) - 1] = '\0';
 
         records.push_back(record);
     }
@@ -549,7 +548,7 @@ vector<Record2> readCSV<Record2>(const string& filename) {
     }
 
     string line;
-    getline(file, line);
+    getline(file, line); // Saltar el encabezado
     while (getline(file, line)) {
         if (line.empty()) continue;
 
@@ -608,33 +607,32 @@ vector<Record2> readCSV<Record2>(const string& filename) {
 }
 
 int main() {
-    string csvFile;
     cout << "Ingrese el nombre del archivo CSV('Clean data.csv' o 'Bike data.csv'): ";
+    string csvFile;
     getline(cin, csvFile);
 
     if (csvFile == "Clean data.csv") {
-        vector<Record> registros;
+        vector<Record1> registros;
         try {
-            registros = readCSV<Record>(csvFile);
+            registros = readCSV<Record1>(csvFile);
             cout << "Registros leídos desde el CSV: " << registros.size() << "\n" << endl;
         } catch (const char* msg) {
             cerr << msg << endl;
             return 1;
         }
 
-        auto comparator = [](const Record& a, const Record& b) {
+        auto comparator = [](const Record1& a, const Record1& b) {
             return string(a.id) < string(b.id);
         };
 
-        auto printer = [](const Record& record) {
+        auto printer = [](const Record1& record) {
             cout << "----- Registro -----\n";
-            cout << "Id: " << record.key << "\n";
-            cout << "Name: " << record.id << "\n";
-            cout << "Key: " << record.name << "\n";
+            cout << "Id: " << record.id << "\n";
+            cout << "Name: " << record.name << "\n";
             cout << "---------------------\n\n";
         };
 
-        SequentialFile<Record> sf("datos.dat", comparator, printer);
+        SequentialFile<Record1> sf("datos.dat", comparator, printer);
 
         try {
             sf.insertAll(registros);
@@ -646,13 +644,9 @@ int main() {
 
         sf.printData();
 
-        vector<Record> nuevosRegistros;
+        vector<Record1> nuevosRegistros;
         for(int i = 1; i <= 20; ++i){
-            Record nuevo;
-
-            string key = to_string(registros.size() + i);
-            strncpy(nuevo.key, key.c_str(), sizeof(nuevo.key));
-            nuevo.key[sizeof(nuevo.key)-1] = '\0';
+            Record1 nuevo;
 
             string id = "ID" + to_string(1000 + registros.size() + i);
             strncpy(nuevo.id, id.c_str(), sizeof(nuevo.id));
@@ -662,72 +656,50 @@ int main() {
             strncpy(nuevo.name, name.c_str(), sizeof(nuevo.name));
             nuevo.name[sizeof(nuevo.name)-1] = '\0';
 
-            string popularity = to_string(60 + (i % 40));
-            strncpy(nuevo.popularity, popularity.c_str(), sizeof(nuevo.popularity));
+            // Asignar valores a los demás campos según sea necesario
+            strncpy(nuevo.popularity, "50", sizeof(nuevo.popularity));
+            strncpy(nuevo.duration_ms, "200000", sizeof(nuevo.duration_ms));
+            strncpy(nuevo.explicit_, "0", sizeof(nuevo.explicit_));
+            strncpy(nuevo.artists, "[NewArtist]", sizeof(nuevo.artists));
+            strncpy(nuevo.id_artists, "[NA]", sizeof(nuevo.id_artists));
+            strncpy(nuevo.release_date, "2023-01-01", sizeof(nuevo.release_date));
+            strncpy(nuevo.danceability, "0.5", sizeof(nuevo.danceability));
+            strncpy(nuevo.energy, "0.6", sizeof(nuevo.energy));
+            strncpy(nuevo.key_str, "5", sizeof(nuevo.key_str));
+            strncpy(nuevo.loudness, "-5.0", sizeof(nuevo.loudness));
+            strncpy(nuevo.mode, "1", sizeof(nuevo.mode));
+            strncpy(nuevo.speechiness, "0.05", sizeof(nuevo.speechiness));
+            strncpy(nuevo.acousticness, "0.1", sizeof(nuevo.acousticness));
+            strncpy(nuevo.instrumentalness, "0.0", sizeof(nuevo.instrumentalness));
+            strncpy(nuevo.liveness, "0.1", sizeof(nuevo.liveness));
+            strncpy(nuevo.valence, "0.5", sizeof(nuevo.valence));
+            strncpy(nuevo.tempo, "120.0", sizeof(nuevo.tempo));
+            strncpy(nuevo.time_signature, "4", sizeof(nuevo.time_signature));
+
+            // Asegurar la terminación nula
             nuevo.popularity[sizeof(nuevo.popularity)-1] = '\0';
-
-            string duration = to_string(180000 + i * 1000);
-            strncpy(nuevo.duration_ms, duration.c_str(), sizeof(nuevo.duration_ms));
             nuevo.duration_ms[sizeof(nuevo.duration_ms)-1] = '\0';
-
-            strncpy(nuevo.explicit_, (i % 2 == 0) ? "0" : "1", sizeof(nuevo.explicit_));
             nuevo.explicit_[sizeof(nuevo.explicit_)-1] = '\0';
-
-            string artists = "[NewArtist" + to_string(1000 + registros.size() + i) + "]";
-            strncpy(nuevo.artists, artists.c_str(), sizeof(nuevo.artists));
             nuevo.artists[sizeof(nuevo.artists)-1] = '\0';
-
-            string id_artists = "[NA" + to_string(1000 + registros.size() + i) + "]";
-            strncpy(nuevo.id_artists, id_artists.c_str(), sizeof(nuevo.id_artists));
             nuevo.id_artists[sizeof(nuevo.id_artists)-1] = '\0';
-
-            string release_date = "2023-" + to_string((i % 12) + 1) + "-15";
-            strncpy(nuevo.release_date, release_date.c_str(), sizeof(nuevo.release_date));
             nuevo.release_date[sizeof(nuevo.release_date)-1] = '\0';
-
-            string danceability = to_string(0.50 + (i * 0.01)).substr(0,4);
-            strncpy(nuevo.danceability, danceability.c_str(), sizeof(nuevo.danceability));
             nuevo.danceability[sizeof(nuevo.danceability)-1] = '\0';
-
-            string energy = to_string(0.60 + (i * 0.01)).substr(0,4);
-            strncpy(nuevo.energy, energy.c_str(), sizeof(nuevo.energy));
             nuevo.energy[sizeof(nuevo.energy)-1] = '\0';
-
-            string loudness = to_string(-6.0 - i * 0.2).substr(0,4);
-            strncpy(nuevo.loudness, loudness.c_str(), sizeof(nuevo.loudness));
+            nuevo.key_str[sizeof(nuevo.key_str)-1] = '\0';
             nuevo.loudness[sizeof(nuevo.loudness)-1] = '\0';
-
-            string mode = (i % 2 == 0) ? "1" : "0";
-            strncpy(nuevo.mode, mode.c_str(), sizeof(nuevo.mode));
             nuevo.mode[sizeof(nuevo.mode)-1] = '\0';
-
-            string speechiness = to_string(0.03 + (i * 0.01)).substr(0,4);
-            strncpy(nuevo.speechiness, speechiness.c_str(), sizeof(nuevo.speechiness));
             nuevo.speechiness[sizeof(nuevo.speechiness)-1] = '\0';
-
-            string acousticness = to_string(0.15 + (i * 0.01)).substr(0,4);
-            strncpy(nuevo.acousticness, acousticness.c_str(), sizeof(nuevo.acousticness));
             nuevo.acousticness[sizeof(nuevo.acousticness)-1] = '\0';
-
-            strncpy(nuevo.instrumentalness, "0.00", sizeof(nuevo.instrumentalness));
             nuevo.instrumentalness[sizeof(nuevo.instrumentalness)-1] = '\0';
-
-            string liveness = to_string(0.10 + (i * 0.01)).substr(0,4);
-            strncpy(nuevo.liveness, liveness.c_str(), sizeof(nuevo.liveness));
             nuevo.liveness[sizeof(nuevo.liveness)-1] = '\0';
-
-            string valence = to_string(0.55 + (i * 0.01)).substr(0,4);
-            strncpy(nuevo.valence, valence.c_str(), sizeof(nuevo.valence));
             nuevo.valence[sizeof(nuevo.valence)-1] = '\0';
-
-            string tempo = to_string(110.0 + i * 1.5).substr(0,5);
-            strncpy(nuevo.tempo, tempo.c_str(), sizeof(nuevo.tempo));
             nuevo.tempo[sizeof(nuevo.tempo)-1] = '\0';
+            nuevo.time_signature[sizeof(nuevo.time_signature)-1] = '\0';
 
             nuevosRegistros.push_back(nuevo);
         }
 
-        // prueba con 20 registros
+        // Prueba con 20 registros
         for(const auto& nuevo : nuevosRegistros){
             try {
                 sf.add(nuevo);
@@ -737,15 +709,14 @@ int main() {
             }
         }
 
-
         cout << "\n----- Búsqueda por Rango -----\n";
         string rangoInicio = "0a9GUZK98uk5pOZR7ENGoH";
         string rangoFin = "0vd8DuejHuZgFlbfwvRVve";
         try {
-            vector<Record> resultados = sf.rangeSearch(rangoInicio, rangoFin);
+            vector<Record1> resultados = sf.rangeSearch(rangoInicio, rangoFin);
             cout << "Registros encontrados en el rango \"" << rangoInicio << "\" y \"" << rangoFin << "\":\n";
             for (const auto& r : resultados) {
-                cout << "Name: " << r.id << ", Id: " << r.name << ", Key: " << r.key << "\n";
+                cout << "Id: " << r.id << ", Name: " << r.name << "\n";
             }
         } catch (const char* msg) {
             cerr << msg << endl;
@@ -754,9 +725,9 @@ int main() {
         cout << "\n----- Búsqueda Después del rebuild -----\n";
         string buscarIDReubicado = "31UeQEthrXrEU88DGYJWf3";
         try {
-            Record encontrado = sf.search(buscarIDReubicado);
+            Record1 encontrado = sf.search(buscarIDReubicado);
             cout << "Registro encontrado:\n";
-            cout << "ID: " << encontrado.id << ", Name: " << encontrado.name << ", Key: " << encontrado.key << "\n";
+            cout << "ID: " << encontrado.id << ", Name: " << encontrado.name << "\n";
         } catch (const char* msg) {
             cerr << msg << endl;
         }
@@ -765,7 +736,6 @@ int main() {
         remove("datos.dat");
         remove("datos_aux.dat");
         */
-
 
     } else if (csvFile == "Bike data.csv") {
         vector<Record2> registros;
@@ -808,13 +778,11 @@ int main() {
             vector<Record2> resultados = sf.rangeSearch(rangoInicio, rangoFin);
             cout << "Registros encontrados en el rango \"" << rangoInicio << "\" y \"" << rangoFin << "\":\n";
             for (const auto& r : resultados) {
-                cout << "Id: " << r.id << ", Customer: " << r.customer << ", Data: " << r.date << "\n";
+                cout << "Id: " << r.id << ", Customer: " << r.customer << ", Date: " << r.date << "\n";
             }
         } catch (const char* msg) {
             cerr << msg << endl;
         }
-
-
 
     } else {
         cerr << "Archivo CSV desconocido." << endl;
