@@ -92,17 +92,18 @@ El conjunto de datos trata sobre la compra de bicicletas por parte de los usuari
 
  ```c++
 struct Record2 {
-    char id[7];
-    char date[10];
-    char customer[4];
-    char model[13];
-    char price[7];
-    char quantity[2];
-    char storelocation[12];
-    char salespersonid[3];
-    char paymentmethod[11];
-    char customerage[3];
-    char customergender[6];
+  char id[7];
+  char date[11];
+  char customer[5];
+  char model[14];
+  char price[8];
+  char quantity[2];
+  char storelocation[13];
+  char salespersonid[4];
+  char paymentmethod[12];
+  char customerage[3];
+  char customergender[7];
+  Record2(){};
 };
  ```
 
