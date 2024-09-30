@@ -274,27 +274,42 @@ Implementamos un analizador (Parser) y un Scánner para procesar una versión si
 
 ## Funcionalidades
 
-1. Análisis Léxico:
+1. **Análisis Léxico**:
 
  - El escáner convierte el texto SQL en tokens que el parser puede interpretar.
  - Ignora espacios en blanco y saltos de línea, y reconoce palabras reservadas y nombres de identificadores.
 
-2. Análisis Sintáctico:
+2. **Análisis Sintáctico**:
    
  - El parser utiliza los tokens generados por el escáner para construir una representación estructurada de las sentencias SQL.
  - Cada tipo de sentencia tiene su propio manejo, lo que permite construir un árbol de sintaxis abstracta o realizar acciones específicas en función de la sentencia.
 
-3. Validación de Sintaxis:
+3. **Validación de Sintaxis**:
 
  - El parser verifica que las sentencias SQL estén correctamente formadas, emitiendo errores de sintaxis cuando se encuentra un token inesperado o mal colocado.
 
-4. Manejo de Tablas:
+4. **Manejo de Tablas**:
 
  - El parser tiene la capacidad de verificar la existencia de tablas mediante la función existeTabla() y de almacenar los valores que se insertan en tablas.
 
-5. Almacenamiento de Valores:
+5. **Almacenamiento de Valores**:
 
  - Al insertar datos, los valores se almacenan en un vector de pares, donde cada par consiste en el valor y su tipo correspondiente.
+
+6. **Operaciones CRUD**:
+  - SELECT: Permite seleccionar datos de las tablas.
+  - INSERT: Añade nuevos registros a las tablas.
+  - DELETE: Elimina registros específicos.
+
+7. **Búsquedas Avanzadas**:
+  - Implementa búsquedas por rango en los datos.
+
+8. **Manejo de Índices**:
+  - Soporta la creación de índices (AVL, Sequential, ISAM) para optimizar búsquedas.
+
+9. **Procesamiento de Archivos**:
+  - Lee datos de archivos CSV para poblar las tablas.
+  - Almacena datos en archivos binarios para persistencia.
 
 ## Errores y Mensajes
 - El código incluye mensajes de error que se muestran al usuario cuando se encuentra un problema en el análisis sintáctico, como caracteres no reconocidos o errores en la formación de las sentencias SQL.
