@@ -1,6 +1,157 @@
 #include "parser.hh"
 using namespace std;
 
+template <typename RecordType>
+vector<RecordType> readCSV(const string& filename);
+
+template <>
+vector<Record1> readCSV<Record1>(const string& filename) {
+    vector<Record1> records;
+    ifstream file(filename);
+    if (!file.is_open()) {
+        throw("No se pudo abrir el archivo CSV.");
+    }
+
+    string line;
+    getline(file, line); // Saltar el encabezado
+    while (getline(file, line)) {
+        if (line.empty()) continue;
+
+        stringstream ss(line);
+        string field;
+        vector<string> fields;
+
+        while (getline(ss, field, ',')) {
+            fields.push_back(field);
+        }
+
+        if (fields.size() < 20) {
+            cerr << "Línea con campos insuficientes: " << line << endl;
+            continue;
+        }
+
+        Record1 record;
+
+        int idx = 0;
+        strncpy(record.id, fields[idx++].c_str(), sizeof(record.id));
+        strncpy(record.name, fields[idx++].c_str(), sizeof(record.name));
+        strncpy(record.popularity, fields[idx++].c_str(), sizeof(record.popularity));
+        strncpy(record.duration_ms, fields[idx++].c_str(), sizeof(record.duration_ms));
+        strncpy(record.explicit_, fields[idx++].c_str(), sizeof(record.explicit_));
+        strncpy(record.artists, fields[idx++].c_str(), sizeof(record.artists));
+        strncpy(record.id_artists, fields[idx++].c_str(), sizeof(record.id_artists));
+        strncpy(record.release_date, fields[idx++].c_str(), sizeof(record.release_date));
+        strncpy(record.danceability, fields[idx++].c_str(), sizeof(record.danceability));
+        strncpy(record.energy, fields[idx++].c_str(), sizeof(record.energy));
+        strncpy(record.key_str, fields[idx++].c_str(), sizeof(record.key_str));
+        strncpy(record.loudness, fields[idx++].c_str(), sizeof(record.loudness));
+        strncpy(record.mode, fields[idx++].c_str(), sizeof(record.mode));
+        strncpy(record.speechiness, fields[idx++].c_str(), sizeof(record.speechiness));
+        strncpy(record.acousticness, fields[idx++].c_str(), sizeof(record.acousticness));
+        strncpy(record.instrumentalness, fields[idx++].c_str(), sizeof(record.instrumentalness));
+        strncpy(record.liveness, fields[idx++].c_str(), sizeof(record.liveness));
+        strncpy(record.valence, fields[idx++].c_str(), sizeof(record.valence));
+        strncpy(record.tempo, fields[idx++].c_str(), sizeof(record.tempo));
+        strncpy(record.time_signature, fields[idx++].c_str(), sizeof(record.time_signature));
+
+        // Asegurar la terminación nula
+        record.id[sizeof(record.id) - 1] = '\0';
+        record.name[sizeof(record.name) - 1] = '\0';
+        record.popularity[sizeof(record.popularity) - 1] = '\0';
+        record.duration_ms[sizeof(record.duration_ms) - 1] = '\0';
+        record.explicit_[sizeof(record.explicit_) - 1] = '\0';
+        record.artists[sizeof(record.artists) - 1] = '\0';
+        record.id_artists[sizeof(record.id_artists) - 1] = '\0';
+        record.release_date[sizeof(record.release_date) - 1] = '\0';
+        record.danceability[sizeof(record.danceability) - 1] = '\0';
+        record.energy[sizeof(record.energy) - 1] = '\0';
+        record.key_str[sizeof(record.key_str) - 1] = '\0';
+        record.loudness[sizeof(record.loudness) - 1] = '\0';
+        record.mode[sizeof(record.mode) - 1] = '\0';
+        record.speechiness[sizeof(record.speechiness) - 1] = '\0';
+        record.acousticness[sizeof(record.acousticness) - 1] = '\0';
+        record.instrumentalness[sizeof(record.instrumentalness) - 1] = '\0';
+        record.liveness[sizeof(record.liveness) - 1] = '\0';
+        record.valence[sizeof(record.valence) - 1] = '\0';
+        record.tempo[sizeof(record.tempo) - 1] = '\0';
+        record.time_signature[sizeof(record.time_signature) - 1] = '\0';
+
+        records.push_back(record);
+    }
+
+    file.close();
+    return records;
+}
+
+template <>
+vector<Record2> readCSV<Record2>(const string& filename) {
+    vector<Record2> records;
+    ifstream file(filename);
+    if (!file.is_open()) {
+        throw("No se pudo abrir el archivo CSV.");
+    }
+
+    string line;
+    getline(file, line); // Saltar el encabezado
+    while (getline(file, line)) {
+        if (line.empty()) continue;
+
+        stringstream ss(line);
+        string token;
+        Record2 record;
+
+        getline(ss, token, ',');
+        strncpy(record.id, token.c_str(), sizeof(record.id));
+        record.id[sizeof(record.id) - 1] = '\0';
+
+        getline(ss, token, ',');
+        strncpy(record.date, token.c_str(), sizeof(record.date));
+        record.date[sizeof(record.date) - 1] = '\0';
+
+        getline(ss, token, ',');
+        strncpy(record.customer, token.c_str(), sizeof(record.customer));
+        record.customer[sizeof(record.customer) - 1] = '\0';
+
+        getline(ss, token, ',');
+        strncpy(record.model, token.c_str(), sizeof(record.model));
+        record.model[sizeof(record.model) - 1] = '\0';
+
+        getline(ss, token, ',');
+        strncpy(record.price, token.c_str(), sizeof(record.price));
+        record.price[sizeof(record.price) - 1] = '\0';
+
+        getline(ss, token, ',');
+        strncpy(record.quantity, token.c_str(), sizeof(record.quantity));
+        record.quantity[sizeof(record.quantity) - 1] = '\0';
+
+        getline(ss, token, ',');
+        strncpy(record.storelocation, token.c_str(), sizeof(record.storelocation));
+        record.storelocation[sizeof(record.storelocation) - 1] = '\0';
+
+        getline(ss, token, ',');
+        strncpy(record.salespersonid, token.c_str(), sizeof(record.salespersonid));
+        record.salespersonid[sizeof(record.salespersonid) - 1] = '\0';
+
+        getline(ss, token, ',');
+        strncpy(record.paymentmethod, token.c_str(), sizeof(record.paymentmethod));
+        record.paymentmethod[sizeof(record.paymentmethod) - 1] = '\0';
+
+        getline(ss, token, ',');
+        strncpy(record.customerage, token.c_str(), sizeof(record.customerage));
+        record.customerage[sizeof(record.customerage) - 1] = '\0';
+
+        getline(ss, token, ',');
+        strncpy(record.customergender, token.c_str(), sizeof(record.customergender));
+        record.customergender[sizeof(record.customergender) - 1] = '\0';
+
+        records.push_back(record);
+    }
+    file.close();
+    return records;
+}
+
+
+
 inline static const char* token_names[34]= {"SELECT", "CREATE", "TABLE", "FROM", "ALL", "WHERE", 
   "DELETE", "EQUAL", "BETWEEN", "AND", "INSERT", "INTO", "VALUES", "FILE", "LPAREN", "RPAREN", 
   "INDEX", "USING", "END", "ERR", "SEMICOLON", "COMMA", "ID", "EOL",
@@ -674,46 +825,54 @@ void Parser::parseTipoMetodo(string fileName, string tableName){
     } else if(match(Token::SEQUENTIAL)){
         if(match(Token::SEMICOLON)){
             if(archivo == "musica.csv"){
-                remove("sequential_data.dat");
-                remove("sequential_aux.dat");
+                remove("datos_aux.dat");
+                remove("datos.dat");
                 auto comparator = [](const Record1& a, const Record1& b) {
                     return string(a.id) < string(b.id);
                 };
 
                 auto printer = [](const Record1& record) {
-                    cout << "----- Registro -----\n";
-                    cout << "Id: " << record.id << "\n";
-                    cout << "Name: " << record.name << "\n";
-                    cout << "---------------------\n\n";
+                    // cout << "----- Registro -----\n";
+                    // cout << "Id: " << record.id << "\n";
+                    // cout << "Name: " << record.name << "\n";
+                    // cout << "---------------------\n\n";
                 };
-                // metodo = new SequentialFile<Record1>(fileName, comparator, printer);
+
+                metodo = new SequentialFile<Record1>("datos.dat", comparator, printer, true);
                 if (tableName == tablas[1].first) {
                     tablas[1].first = "";
                 }
                 tablas[0] = make_pair(tableName, "record1");
                 tabla = tablas[0];
+                vector<Record1> registros;
+                registros = readCSV<Record1>(fileName);
+                metodo->insertAll(registros);
                 // insertData(fileName);
               cout << "Tabla con musica.csv creada" << endl;
             } 
-            else if(archivo == "bike.csv"){
-                remove("sequential_data.dat");
-                remove("sequential_aux.dat");
+            else if(archivo == "bike2.csv"){
+                remove("datos_aux.dat");
+                remove("datos.dat");
                 auto comparator = [](const Record2& a, const Record2& b) {
                     return string(a.id) < string(b.id);
                 };
 
                 auto printer = [](const Record2& record) {
-                    cout << "----- Registro -----\n";
-                    cout << "Id: " << record.id << "\n";
-                    cout << "Name: " << record.customer << "\n";
-                    cout << "---------------------\n\n";
+                    // cout << "----- Registro -----\n";
+                    // cout << "Id: " << record.id << "\n";
+                    // cout << "Name: " << record.customer << "\n";
+                    // cout << "---------------------\n\n";
                 };
-                // metodo2 = new SequentialFile<Record2>(fileName, comparator, printer);
+                metodo2 = new SequentialFile<Record2>("datos.dat", comparator, printer, false);
                 if (tableName == tablas[0].first) {
                     tablas[0].first = "";
                 }
+
                 tablas[1] = make_pair(tableName, "record2");
                 tabla = tablas[1];
+                vector<Record2> registros;
+                registros = readCSV<Record2>(fileName);
+                metodo2->insertAll(registros);
                 // insertData2(fileName);
               cout << "Tabla con bike.csv creada" << endl;
             }
