@@ -11,10 +11,10 @@ int main(int argc, char* argv[]) {
     string sentencia;
     while (true) {
         cout << "Inserte su sentencia SQL: " << endl;
-        cin.ignore(); 
-        getline(cin, sentencia);
+        // cin.ignore(); 
+      getline(cin, sentencia);
 
-        cout << "Sentencia ingresada: " << sentencia << endl;
+        // cout << "Sentencia ingresada: " << sentencia << endl;
 
         Scanner scanner(sentencia + " ");
         Parser parser(&scanner);
@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
         if (!error_message.empty()) {
             cout << "Mensaje de error: " << error_message << endl;
         } else {
-            cout << "Parseo exitoso, sin errores." << endl;
+          cout << endl << endl;
         }
     }
     return 0;
