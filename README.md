@@ -45,26 +45,33 @@ filtraron los datos vacíos para evitar problemas con los algoritmos implementad
 Spotify Dataset 1921-2020, 600k+ Tracks.
 
  ```c++
-struct Record {
-    char key[40];
-    char id[200];
-    char name[100];
-    char popularity[10];
-    char duration_ms[15];
-    char explicit_[5];
-    char artists[200];
-    char id_artists[100];
-    char release_date[15];
-    char danceability[10];
-    char energy[10];
-    char loudness[10];
-    char mode[5];
-    char speechiness[10];
-    char acousticness[10];
-    char instrumentalness[10];
-    char liveness[10];
-    char valence[10];
-    char tempo[10];
+struct Record1 {
+  char id[23];
+  char name[529];
+  char popularity[3];
+  char duration_ms[7];
+  char explicit_[1];
+  char artists[934];
+  char id_artists[1508];
+  char release_date[10];
+  char danceability[6];
+  char energy[8];
+  char key_str[2];
+  char loudness[7];
+  char mode[1];
+  char speechiness[6];
+  char acousticness[8];
+  char instrumentalness[8];
+  char liveness[7];
+  char valence[8];
+  char tempo[7];
+  char time_signature[1];
+
+  long left = -1;
+  long right = -1;
+  int height = 1;
+  Record1(){};
+
 };
  ```
 
