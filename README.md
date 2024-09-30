@@ -187,17 +187,17 @@ La clase implementa un árbol balanceado donde la diferencia entre raama izquier
 1. Add (Inserción)
      Se inserta un nuevo registro de datos, si la raiz es -1, se inserta al final del archivo, en caso contrario, se va recorriendo el árbol de manera recursiva comparando el key para poder ir bajando por el árbol. Despues de cada inserción, se realiza el balanceo, donde se realizan las rotaciones respectivas para que el factorr de balanceo no exceda a la unidad.
    
-   **Complejidad:** En el mejor de los casos tiene complejidad O(1) es decir que esta vació y en el pero O(log(n))
+   **Complejidad:** En el mejor de los casos tiene complejidad O(1) es decir que esta vació y en el peor O(log(n))
 
 2. Find (Búsqueda)
      Para la búsqueda se hace un proceso similar al del insert, donde se va comparando recursivamente hasta encontrar la posición respectiva, en caso que sea -1, devuelve falso, ya que, no existe el nodo a buscar.
    
-   **Complejidad:** En el mejor de los casos es complejidad 0(1) (la raíz) y en el peor de los casos es complejidad 0(log(n))
+   **Complejidad:** En el mejor de los casos es complejidad O(1) (la raíz) y en el peor de los casos es complejidad O(log(n))
 
 3. Remove (Eliminación)
    Se busca el registro, comparando respectivamente los keys hasta encontrarlos. Una vez encontrado pregunta si alguno de sus hijos es nulo y si es asi, se intercambio por ese, caso contrario, se busca al minimo del subarbol izquierdo para que lo reemplace. Una vez hecho esto se realiza la actualización de las alturas y los balanceos respectivos para que se cumpla el factor de balanceo.
    
-   **Complejidad:** En el peor de los casos tiene complejidad 0(log(n)), ya que, tiene que ir recorriendo el árbol, y en el mejor 0(1) habiendo solo 1 nodo en el árbol.
+   **Complejidad:** En el peor de los casos tiene complejidad O(log(n)), ya que, tiene que ir recorriendo el árbol, y en el mejor O(1) habiendo solo 1 nodo en el árbol.
    
 4. rangeSearch (Búsqueda por rango)
    Primero se verifica que los keys de begin y end existan en el AVL, caso contario, se busca el succesor del begin y/o el predecessor del end, esto se hace con un stack y un queue. Luego, se va recorriendo al árbol de manera recursiva, añadiendo a un vector los       registros que cumplar estar entre el rango.
@@ -246,6 +246,16 @@ La clase ISAM implementa un método de acceso secuencial indexado en dos niveles
 
 
 Cada una de estas operaciones aprovecha la estructura de índices para mantener un acceso eficiente y rápido, minimizando el número de accesos a disco, lo que es crucial para grandes volúmenes de datos.
+
+## Análisis comparativo de complejidades
+
+|   Métodos  |            AVL           |  Sequential |    ISAM    |
+|------------|--------------------------|-------------|------------|
+|     Add    |         O(log(n))        |    O(n+m)   |  O(log(n)) |
+|   Remove   |         O(log(n))        |       -     |  O(log(n)) |
+|   Search   |         O(log(n))        |     O(n)    |  O(log(n)) |
+|RangeSearch |  O(log(n)) + O(k) + O(m) |     O(n)    | O(log(n)+m)|
+
 
 # Parser
 
@@ -313,7 +323,6 @@ Implementamos un analizador (Parser) y un Scánner para procesar una versión si
 
 ## Errores y Mensajes
 - El código incluye mensajes de error que se muestran al usuario cuando se encuentra un problema en el análisis sintáctico, como caracteres no reconocidos o errores en la formación de las sentencias SQL.
-
 
 # Autores
 
